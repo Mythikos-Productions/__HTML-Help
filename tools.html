@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SP Tools</title>
+    <link rel="stylesheet" href="assets/styles.css">
+    <link rel="stylesheet" href="assets/highlight/styles/atom-one-dark.css">
+    <script src="assets/highlight/highlight.min.js"></script>
+    <script src="assets/script.js"></script> <!-- ! External script file -->
+    <script>hljs.highlightAll();</script>
+    <style>
+
+        #sidebar-container {
+            width: 25%; /* ! Sidebar max width set to 40% */
+            max-width: 25%;
+        }
+        .content {
+            flex-grow: 1; /* Ensures the content takes up the remaining space */
+            max-width: 75%;
+            padding-left: 20px; /* Adjust spacing as needed */
+}
+        table {
+            max-width: 80%; /* ! Table max width set to 80% */
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        ol {
+            padding-left: 20px; /* Keeps standard indentation */
+        }
+
+        ol li {
+            display: grid;
+            grid-template-columns: 150px auto; /* Set consistent spacing between bold and normal text */
+            gap: 15px; /* Adjust spacing between bold and normal text */
+            margin-bottom: 10px; /* Maintain consistent spacing between list items */
+        }
+
+        ol li strong {
+            display: inline-block; /* Keeps the bold text from collapsing */
+        }}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="sidebar-container">
+            <aside class="sidebar">
+    <div class="logo">
+        <a href="index.html">
+            <img src="_images/logo.png" alt="Framework Logo">
+        </a>
+    </div>
+
+    <h2>Framework</h2>
+    <ul>
+        <li>
+            <a>About The Framework</a>
+            <!-- ! Submenu -->
+            <ul>
+                <li><a href="general.html">General</a></li>
+                <li><a href="tools.html">SP Tools</a></li>
+                <li><a href="file-structure.html">File / Folder Structure</a></li>
+<!--                <li><a href="file-order.html">File Import Order</a></li>-->
+            </ul>
+        </li>
+        <li>
+            <a>Framework Essentials</a>
+            <!-- ! Submenu -->
+            <ul>
+                <li><a href="essentials.html#host-management">Host Management</a></li>
+                <li><a href="essentials.html#global-functions">Global Functions</a></li>
+                <li><a href="essentials.html#global-timers">Global Timers</a></li>
+                <li><a href="essentials.html#ui-hosts_tlps">UI Hosts / TLPs</a></li>
+                <li><a href="essentials.html#trace_print-tools">Trace / Print Tools</a></li>
+                <li><a href="essentials.html#console-management">Console Management</a></li>
+                <li><a href="essentials.html#building-ui-elements">Building UI Elements</a></li>
+                <li><a href="essentials.html#access-ui-elements">Access UI Elements</a></li>
+                <li><a href="essentials.html#me-set-tools">ME Set Tools</a></li>
+                <li><a href="essentials.html#ui-element-set-tools">UI Element Set Tools</a></li>
+                <li><a href="essentials.html#page-popup-navigation">Page / Popup Navigation</a></li>
+            </ul>
+        </li>
+                <li>
+            <li><a href="gui-design.html">GUI Design Principles</a></li>
+            <!-- ! Submenu -->
+        <li>
+            <a href="boot-agent.html">Boot Agent</a>
+        </li>
+
+        <h2>Plug-ins</h2>
+        <li>
+            <a>Configuration Files</a>
+            <!-- ! Submenu -->
+            <ul>
+                <li><a href="configuration-files.html#device-config">Device Configuration</a></li>
+                <li><a href="configuration-files.html#matrix-config">Matrix Configuration</a></li>
+            </ul>
+        </li>
+
+        <h2>Sandbox</h2>
+        <li><a href="sandbox.html">What is a Sandbox?</a></li>
+        <li>
+            <a href="defining-a-sandbox.html">Defining a Sandbox</a>
+            <!-- ! Submenu -->
+        </li>
+        <li><a href="sandbox-config.html">Sandbox Config</a></li>
+
+        <h2>Code Examples</h2>
+        <li><a href="example-creating-elements.html">Creating Elements</a></li>
+
+    </ul>
+
+
+    <h3>Quick Search</h3>
+    <!-- Search input - event listener attached in JavaScript -->
+    <input type="text" id="search" placeholder="Search...">
+</aside>
+
+        </div> <!-- ! Sidebar will be inserted here dynamically -->
+
+        <main class="content">
+            <section>
+            <h1>SP Tools</h1>
+            <p>
+                SP Tools are designed to provide a series of helper functions, methods, and classes that are utilized by the SP Framework.
+            </p>
+            <table>
+                <tr><th>Tool Group</th><th>Description</th></tr>
+                <tr><td><a href="#formatting-tools">Formatting Tools</a></td><td>Formatting Tools are used to format different elements used by the SP Framework</td></tr>
+                <tr><td><a href="#audio-tools">Audio Tools</a></td><td>Audio Tools are used to calculate certain audio parameters inside the SP Framework deployment</td></tr>
+                <tr><td><a href="#sandbox-standards">Sandbox Standards</a></td><td>Sandbox Standards are used to navigate the required sandbox files.</td></tr>
+                <tr><td><a href="#framework-tools-fileoperations">Framework Tools / File Operations</a></td><td>Import / Export / Read functions for various file types: CSV, JSON, TXT, LOG and understanding order of file operations</td></tr>
+                <tr><td><a href="#format-table-tools">Format Table Tools</a></td><td>Tools for formatting tables</td></tr>
+                <tr><td><a href="#sp-formatted-text">SP Formatted Text</a></td><td>Used for custom reports and formatting</td></tr>
+            </table>
+                <br>
+                <hr style="border: 1px solid #000;">
+            </section>
+
+            <section id="formatting-tools">
+            <h2>Formatting Tools</h2>
+            <p>
+                Formatting Tools are used to format different elements used by the SP Framework
+            </p>
+            <table>
+                <tr><th>Function/Class</th><th>Description</th></tr>
+                <tr><td><a href="#build_formatted_header">build_formatted_header</a></td><td>Returns a formatted header containing the given text.</td></tr>
+                <tr><td><a href="#text_to_2d_array">text_to_2d_array</a></td><td>Converts a text string into a 2D array</td></tr>
+                <tr><td><a href="#formatTable_listOfDicts">formatTable_listOfDicts</a></td><td>Formats a list of dictionaries into a table-like string representation</td></tr>
+                <tr><td><a href="#formatTable_verticalLists">formatTable_verticalLists</a></td><td>Creates a formatted table string from a list of vertical columns and header labels.</td></tr>
+                <tr><td><a href="#formatTable_listOfTuples">formatTable_listOfTuples</a></td><td>Formats a list of tuples into a table-like string with optional headers and title.</td></tr>
+                <tr><td><a href="#fahrenheit_to_celsius">fahrenheit_to_celsius</a></td><td>Converts a temperature from Fahrenheit to Celsius.</td></tr>
+                <tr><td><a href="#celsius_to_fahrenheit">celsius_to_fahrenheit</a></td><td>Converts a temperature in Celsius to Fahrenheit.</td></tr>
+                <tr><td><a href="#obscure_txt">obscure_txt</a></td><td>Formats a text string using the specified obscuring character.</td></tr>
+                <tr><td><a href="#DotDict">DotDict</a></td><td>Class that creates a dot-dict object from a dictionary.</td></tr>
+            </table>
+                <h3 id="build_formatted_header">build_formatted_header</h3>
+                <p>
+The header will have a top and bottom border of '*' characters.
+Each interior line is wrapped and centered if it exceeds the available width.
+The available width is CONSOLE_MAX_CHAR minus padding added by the side borders.
+                </p>
+                <pre><code class="language python">build_formatted_header(text: str, max_length=80) -> str</code></pre>
+                <h4>Parameters</h4>
+                <table>
+                    <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+                    <tr><td><code>text</code></td><td>str</td><td>The header text. Lines can be separated using "\r" or "\n".</td></tr>
+                </table>
+                <h4>Returns</h4>
+                <p>
+                    str: The complete formatted header
+                </p>
+                <h4>Example Usage</h4>
+                <pre><code class="language Python">
+print(build_formatted_header("This is a header", max_length=27)) #returns the following:
+
+      ***************************
+      **** This is a header  ****
+      ***************************
+                </code></pre>
+                <h3 id="text_to_2d_array">text_to_2d_array</h3>
+                <p>
+Converts a text string into a 2D array, starting from the specified line and character index,
+with a maximum number of lines and characters per line.  Useful for scrolling text up, down, left and right.
+                </p>
+                <pre><code class="language python">text_to_2d_array(text, start_line, start_char_index, max_lines=3, max_char=40)</code></pre>
+                <h4>Parameters</h4>
+                <table>
+                    <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+                    <tr><td><code>text</code></td><td>str</td><td>The input text string.</td></tr>
+                    <tr><td><code>start_line</code></td><td>int</td><td>The starting line index (0-based).</td></tr>
+                    <tr><td><code>start_char_index</code></td><td>int</td><td>The starting character index within the line (0-based).</td></tr>
+                    <tr><td><code>max_lines</code></td><td>int, optional</td><td>Maximum number of lines to include. Defaults to 3.</td></tr>
+                    <tr><td><code>max_char</code></td><td>int, optional</td><td>Maximum number of characters per line. Defaults to 40.</td></tr>
+                </table>
+                <h4>Returns</h4>
+                <p>
+                    str: The resulting 2D array as a formatted text block.
+                </p>
+                <h4>Example Usage</h4>
+                <pre><code class="language Python">
+ >>> sample_text = (
+...     "Lorem ipsum dolor sit amet, consectetur adipiscing elit.\\n"
+...     "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\\n"
+...     "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.\\n"
+...     "Nisi ut aliquip ex ea commodo consequat."
+... )
+>>> print(text_to_2d_array(sample_text, start_line=1, start_char_index=5, max_lines=2, max_char=50))
+do eiusmod tempor incididunt ut labore et dolo
+enim ad minim veniam, quis nostrud exercitation
+                </code></pre>
+                <h3 id="formatTable_listOfDicts">formatTable_listOfDicts</h3>
+                <p>
+                    Formats a list of dictionaries into a table-like string representation, handling multi-line headers
+    with various newline conventions (CR, LF, CRLF). Optionally obscures cell text based on keywords in headers.
+                </p>
+                <pre><code class="language python">formatTable_listOfDicts(data, custom_order=None, title='', return_max_len=False, keywords_to_obscure=None)</code></pre>
+                <h4>Parameters</h4>
+                <table>
+                    <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+                    <tr><td><code>data</code></td><td>list</td><td>A list of dictionaries to be formatted into a table.</td></tr>
+                    <tr><td><code>custom_order</code></td><td>list, optional</td><td>A list of keys that defines the order of columns. If not provided, headers are extracted from the first dictionary.</td></tr>
+                    <tr><td><code>title</code></td><td>str, optional</td><td>A title to display above the table.</td></tr>
+                    <tr><td><code>return_max_len</code></td><td>bool, optional</td><td>If True, also returns the maximum length of the table's separator line. Default is False</td></tr>
+                    <tr><td><code>keywords_to_obscure</code></td><td>list, optional</td><td>A list of keywords. If any keyword is found in a header (case-insensitive), the corresponding cell text will be obscured with asterisks.</td></tr>
+                </table>
+                <h4>Returns</h4>
+                <p>
+                    str or tuple: The formatted table as a string. If return_max_len is True, returns a tuple containing the formatted table and the length of the separator line.
+                </p>
+                <h4>Example Usage</h4>
+                <pre><code class="language Python">
+>>> data = [
+...     {"Name": "Alice", "Age": 30, "Secret": "Loves Python"},
+...     {"Name": "Bob", "Age": 25, "Secret": "Hates bugs"}
+... ]
+>>> custom_order = ["Name", "Age", "Secret"]
+>>> table, sep_length = formatTable_listOfDicts(data, custom_order=custom_order, title="User Info", return_max_len=True, keywords_to_obscure=["Secret"])
+>>> print(table)
+User Info
+Name  | Age | Secret
+-------------------------
+Alice | 30  | ************
+Bob   | 25  | ************
+-------------------------
+>>> print("Separator length:", sep_length)
+                </code></pre>
+                <h3 id="formatTable_verticalLists">formatTable_verticalLists</h3>
+                <p>
+                    Creates a formatted table string from a list of vertical columns and header labels.
+                </p>
+                <pre><code class="language python">formatTable_verticalLists(columns, headers, title=None)</code></pre>
+                <h4>Parameters</h4>
+                <table>
+                    <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+                    <tr><td><code>columns</code></td><td>list of lists</td><td>A list where each element is a column represented as a list of strings.</td></tr>
+                    <tr><td><code>headers</code></td><td>list of str</td><td>A list of header labels corresponding to each column.</td></tr>
+                    <tr><td><code>title</code></td><td>str, optional</td><td>An optional title for the table. Defaults to None.</td></tr>
+                </table>
+                <h4>Returns</h4>
+                <p>
+                    str: A string representing the formatted table with borders and appropriate spacing.
+                </p>
+                <h4>Example Usage</h4>
+                <pre><code class="language Python">
+>>> cols = [
+...     ["Alice", "Bob", "Charlie"],
+...     ["24", "30", "22"],
+...     ["Engineer", "Designer", "Manager"]
+... ]
+>>> hdrs = ["Name", "Age", "Occupation"]
+>>> table = formatTable_verticalLists(cols, hdrs, title="Employee Data")
+>>> print(table)
+--Employee Data--
++-------+-----+-----------+
+| Name  | Age | Occupation|
++-------+-----+-----------+
+| Alice | 24  | Engineer  |
+| Bob   | 30  | Designer  |
+|Charlie| 22  | Manager   |
++-------+-----+-----------+
+                </code></pre>
+                <h3 id="formatTable_listOfTuples">formatTable_listOfTuples</h3>
+                <p>
+                    Formats a list of tuples into a table-like string with optional headers and title.<br>
+
+    This function takes a list of tuples, where each tuple represents a row of values,
+    and converts it into a well-formatted table. If headers are not provided, default header
+    names are generated. The function validates that all rows are tuples and that the number
+    of headers matches the number of columns.
+                </p>
+                <pre><code class="language python">formatTable_listOfTuples(data, headers=None, title='')</code></pre>
+                <h4>Parameters</h4>
+                <table>
+                    <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+                    <tr><td><code>data</code></td><td>list of tuples</td><td>The table data, where each tuple is a row.</td></tr>
+                    <tr><td><code>headers</code></td><td>list of str, optional</td><td>A list of header names for the columns. Defaults to None.</td></tr>
+                    <tr><td><code>title</code></td><td>str, optional</td><td>A title to be displayed at the top of the table. Defaults to an empty string.</td></tr>
+                </table>
+                <h4>Returns</h4>
+                <p>
+                    str: A string representing the formatted table.
+                </p>
+                <h4>Example Usage</h4>
+                <pre><code class="language Python">
+>>> data = [
+...     (1, 'Todd', 'Engineer'),
+...     (2, 'Jeremy', 'Designer'),
+...     (3, 'Duston', 'Manager')
+... ]
+>>> headers = ["ID", "Name", "Occupation"]
+>>> print(formatTable_listOfTuples(data, headers, title="Employee Info"))
+Employee Info
+ID  | Name    | Occupation
+----------------------------
+1   | Todd    | Engineer
+2   | Jeremy  | Designer
+3   | Duston  | Manager
+----------------------------
+                </code></pre>
+                <h3 id="fahrenheit_to_celsius">fahrenheit_to_celsius</h3>
+                <p>
+                    Converts a temperature from Fahrenheit to Celsius.<br><br>
+
+    This function uses the formula:<br>
+        Celsius = (Fahrenheit - 32) * 5/9<br>
+    to convert the given temperature.
+                </p>
+                <pre><code class="language python">fahrenheit_to_celsius(fahrenheit)</code></pre>
+                <h4>Parameters</h4>
+                <table>
+                    <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+                    <tr><td><code>Fahrenheit</code></td>float<td>str</td><td>The temperature in Fahrenheit</td></tr>
+                </table>
+                <h4>Returns</h4>
+                <p>
+                    float: The converted temperature in Celsius.
+                </p>
+                <h4>Example Usage</h4>
+                <pre><code class="language Python">
+>>> fahrenheit_to_celsius(32)
+0.0
+                </code></pre>
+                <h3 id="celsius_to_fahrenheit">celsius_to_fahrenheit</h3>
+                <p>
+                    Converts a temperature from Celsius to Fahrenheit.<br><br>
+
+    This function uses the conversion formula:<br>
+        Fahrenheit = (9/5) * Celsius + 32
+                </p>
+                <pre><code class="language python">celsius_to_fahrenheit(celsius)</code></pre>
+                <h4>Parameters</h4>
+                <table>
+                    <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+                    <tr><td><code>Celsius</code></td><td>float</td><td>The temperature in Celsius.</td></tr>
+                </table>
+                <h4>Returns</h4>
+                <p>
+                    float: The temperature converted to Fahrenheit.
+                </p>
+                <h4>Example Usage</h4>
+                <pre><code class="language Python">
+>>> celsius_to_fahrenheit(0)
+32.0
+                </code></pre>
+                <h3 id="obscure_txt">obscure_txt</h3>
+                <p>
+                    Obscures the given text by replacing each character with a specified obscuring character.<br>
+
+    This function is typically used to mask sensitive information such as passwords by converting
+    the text into a series of identical characters.
+                </p>
+                <pre><code class="language python">obscure_txt(text, obscuring_char='*')</code></pre>
+                <h4>Parameters</h4>
+                <table>
+                    <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+                    <tr><td><code>text</code></td><td>str</td><td>The original text to be obscured.</td></tr>
+                    <tr><td><code>obscuring_char</code></td><td>str, optional</td><td>The character used for obscuring the text. Defaults to '*'.</td></tr>
+                </table>
+                <h4>Returns</h4>
+                <p>
+                    str: A string of the same length as 'text', with each character replaced by the obscuring_char.
+                </p>
+                <h4>Example Usage</h4>
+                <pre><code class="language Python">
+>>> obscure_txt("secret", '#')
+'######'
+                </code></pre>
+                <h3 id="DotDict">DotDict</h3>
+                <p>
+A dictionary subclass that enables attribute-style access and assignment.<br>
+
+    DotDict allows you to use dot notation to get and set dictionary items, making the
+    syntax more concise and intuitive. When instantiated, it optionally prints its
+    contents based on the 'traceAtCreation' flag.
+                </p>
+                <pre><code class="language python">DotDict(dict)</code></pre>
+                <h4>Parameters</h4>
+                <p>
+                    Inherits all standard dictionary methods and behaviors.
+                </p>
+                <br>
+                <hr style="border: 1px solid #000;">
+            </section>
+
+            <section id="audio-tools">
+                <h2>Audio Tools</h2>
+                <p>
+                    Audio Tools are used to calculate values for the SP Framework
+                </p>
+                <table>
+                    <tr><th>Function/Class</th><th>Description</th></tr>
+                    <tr><td><a href="findVolPercentage">findVolPercentage</a></td><td>Calculates the percentage of a given value relative to a specified range.</td></tr>
+                </table>
+                <h3 id="findVolPercentage">findVolPercentage</h3>
+                <p>
+                    The percentage is computed by first normalizing the value to a zero-based scale
+    (shifting both the minimum and maximum), then calculating the percentage relative
+    to the adjusted maximum.
+                </p>
+                <pre><code class="language python">findVolPercentage(Min, Max, Val)</code></pre>
+                <h4>Parameters</h4>
+                <table>
+                    <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+                    <tr><td><code>Min</code></td><td>float</td><td>The lower bound of the range.</td></tr>
+                    <tr><td><code>Max</code></td><td>float</td><td>The upper bound of the range.</td></tr>
+                    <tr><td><code>Val</code></td><td>float</td><td>The value for which the percentage is to be determined.</td></tr>
+                </table>
+                <h4>Returns</h4>
+                <p>
+                    str: The percentage value formatted as a string with a trailing '%' symbol.
+                </p>
+                <h4>Example Usage</h4>
+                <pre><code class="language Python">
+>>> findVolPercentage(-50, 50, 0)
+'50%'
+                </code></pre>
+                <br>
+                <hr style="border: 1px solid #000;">
+            </section>
+
+            <section id="sandbox-standards">
+                <h2>Sandbox Standards</h2>
+                <p>
+                    Sandbox Standards provide tools for defining, accessing, documenting, and managing the files crucial
+                    for the operation of a sandboxed system, along with utility functions for string comparison, logging,
+                    object name retrieval, IP address manipulation, text handling, list manipulation,
+                    and system information reporting.
+                </p>
+                <table>
+                    <tr><th>Function/Class</th><th>Description</th></tr>
+                    <tr><td><a href="#get_file_class">get_file_class</a></td><td>Returns the corresponding class object for a given file class string.</td></tr>
+                    <tr><td><a href="#get_about_files">get_about_files</a></td><td>Returns a list of required files and their attributes.</td></tr>
+                    <tr><td><a href="#get_required_file">get_required_file</a></td><td>Searches for a required file that matches the specified attribute and value.</td></tr>
+                    <tr><td><a href="#required_file">required_file</a></td><td>Represents a required file used by the system by encapsulating its key, host object, file path, file class, priority, table order for CSV headers, and description.</td></tr>
+                    <tr><td><a href="#are_strings_similar">are_strings_similar</a></td><td>Compares two strings by checking for similarities.</td></tr>
+                    <tr><td><a href="#try_to_dvTrace">try_to_dvTrace</a></td><td>Tries to send a dvTrace message.  Used in early stages in case the dvTrace has bnot been loaded yet.</td></tr>
+                    <tr><td><a href="#flag_system_error">flag_system_error</a></td><td>Logs an error message and optionally sends it to dvTrace.</td></tr>
+                    <tr><td><a href="#get_dict_name">get_dict_name</a></td><td>Returns the name of a dictionary, list, set, or tuple in the global scope.</td></tr>
+                    <tr><td><a href="#get_list_name">get_list_name</a></td><td>Retrieves the name of the list object from the global namespace.</td></tr>
+                    <tr><td><a href="#padIP">padIP</a></td><td>Pads each octet of an IPv4 address with leading zeros to ensure three digits per octet.</td></tr>
+                    <tr><td><a href="#hideIP">hideIP</a></td><td>Masks a specified number of leading octets in an IPv4 address by replacing them with 'x'.</td></tr>
+                    <tr><td><a href="#scrollText">scrollText</a></td><td>Extracts a block of text from the provided input and optionally adds serialized line numbers.</td></tr>
+                    <tr><td><a href="#flatten">flatten</a></td><td>Flattens a list of lists to a single list.</td></tr>
+                    <tr><td><a href="#fillList">fillList</a></td><td>Fills the list with the desired length.</td></tr>
+                    <tr><td><a href="#create_file_tree">create_file_tree</a></td><td>Creates a file tree structure for the current directory.</td></tr>
+                    <tr><td><a href="#SystemSettingsInfoBlock">SystemSettingsInfoBlock</a></td><td>Retrieves the System Settings Info Block for the specified processor.</td></tr>
+                </table>
+                <h3 id="get_file_class">get_file_class</h3>
+                <p>
+                    This function takes a string representing a file class ('file' or 'rfile')
+       and returns the associated class object (`File` or `RFile`). The input
+       string is case-insensitive. If an invalid file class string is provided,
+       it logs a system error using `flag_system_error` and does not return a value
+       (implicitly returns None after the error logging).
+                </p>
+                <pre><code class="language python">get_file_class(_file_class)</code></pre>
+                <h4>Parameters</h4>
+                <table>
+                    <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+                    <tr><td><code>_file_class</code></td><td>str</td><td>The string representation of the desired file class (e.g., 'file', 'rfile').</td></tr>
+                </table>
+                <h4>Returns</h4>
+                <p>
+                    object: The class object corresponding to the input string (`File` or `RFile`). Returns None if the input string is invalid (after logging an error).
+                </p>
+                <h4>Example Usage</h4>
+                <pre><code class="language Python">
+>>> get_file_class('file')
+# Assuming File class is defined in __main__
+>>> get_file_class('RFILE')
+# Assuming RFile class is defined in __main__
+>>> get_file_class('invalid')
+# Output will also include a call to flag_system_error
+None
+                </code></pre>
+
+                <h3 id="get_about_files">get_about_files</h3>
+                <p>
+                    This function iterates over the 'dict_of_required_files' dictionary, and for each
+    file instance with a valid path, it appends its string representation to a report.
+    The report starts with a centered header indicating the section for required files.
+                </p>
+                <pre><code class="language python">get_about_files()</code></pre>
+                <h4>Returns</h4>
+                <p>
+                    str: A formatted string listing all the required files with their details.
+                </p>
+                <h4>Example Usage</h4>
+                <pre><code class="language Python">
+>>> print(get_about_files())
+=================== REQUIRED FILES ===================
+
+#details of file 1#
+#details of file 2#
+...
+                </code></pre>
+
+                <h3 id="get_required_file">get_required_file</h3>
+                <p>
+                    This function iterates through the entries in the 'dict_of_required_files' dictionary,
+    and for each file instance, it uses dynamic attribute access to check if the specified
+    attribute equals the given value. If a match is found, the corresponding file instance is returned.<br><br>
+
+    If no matching file is found, the function logs an error indicating that the file was not found,
+    and then returns None.
+                </p>
+                <pre><code class="language python">get_required_file(attribute, value)</code></pre>
+                <h4>Parameters</h4>
+                <table>
+                    <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+                    <tr><td><code>attribute</code></td><td>str</td><td>The name of the attribute to search by (e.g., 'sp_plugin', 'key', 'path').</td></tr>
+                    <tr><td><code>value</code></td><td>str</td><td>The value to match against the specified attribute.</td></tr>
+                </table>
+                <h4>Returns</h4>
+                <p>
+                    object: The matching required_file instance if found; otherwise, None.
+                </p>
+                <h4>Example Usage</h4>
+                <pre><code class="language Python">
+>>> file_instance = get_required_file('path', '/path/to/file')
+>>> if file_instance is None:
+...     print("File not found!")
+                </code></pre>
+
+                <h3 id="required_file">required_file</h3>
+                <p>
+                    Each of the required files follows the same general structure:<br>
+
+    required_file_1_object              # Points to the required file. This is the main object representing the file.<br>
+    required_file_1_about               # Brief description of the file or its purpose. Helps to understand the file's role.<br>
+    required_file_1_path                # Path to the required file. Can be either 'File' (local) or 'RFile' (remote).<br>
+    required_file_1_table_order         # If using a CSV, this list shows the desired order of headers for printing the CSV<br>
+                                        # on the TLP (Tactical Logistics Processor). Helps in organizing data presentation.<br>
+    required_file_1_file_class          # Indicates where the file is located on the IPCP Processor. Can be 'File' or 'RFile'.<br>
+                                        # 'File' represents a local file, while 'RFile' is a remote file.<br>
+    required_file_1_file_priority       # Determines whether you want to load the configuration from the file, or backup the<br>
+                                        # file from the source file object. Can be 'local' (load from local) or 'file' (backup<br>
+                                        # from the source). Helps in managing file operations based on priority.<br><br>
+
+    Represents a required file used by the system by encapsulating its key,
+    host object, file path, file class, priority, table order for CSV headers, and description.<br><br>
+
+    Each instance is automatically registered in a global dictionary of required files.
+    If a duplicate key is detected during instantiation, an error is logged.
+                </p>
+                <pre><code class="language python">class required_file</code></pre>
+                <h4>Parameters</h4>
+                <table>
+                    <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+                    <tr><td><code>key</code></td><td>str</td><td>Unique identifier for the file.</td></tr>
+                    <tr><td><code>host_obj</code></td><td>dict, list, set, tuple</td><td>The container object holding the file.</td></tr>
+                    <tr><td><code>path</code></td><td>str</td><td>File path indicating if it's local or remote.</td></tr>
+                    <tr><td><code>file_class</code></td><td>str</td><td>Classification of the file (e.g., 'File' for local or 'RFile' for remote).</td></tr>
+                    <tr><td><code>priority</code></td><td>str</td><td>Loading or backup priority (e.g., 'local' or 'file').</td></tr>
+                    <tr><td><code>table_order</code></td><td>list</td><td>Specifies the desired header order for CSV files.</td></tr>
+                    <tr><td><code>about</code></td><td>str</td><td>Descriptive text about the file and its purpose.</td></tr>
+                    <tr><td><code>width</code></td><td>int</td><td>Format width for the string representation; defaults to 60.</td></tr>
+                    <tr><td><code>sp_plugin</code></td><td>optional</td><td>An optional plugin associated with the file.</td></tr>
+                </table>
+                <h3 id="are_strings_similar">are_strings_similar</h3>
+                <p>
+                    The function uses a similarity metric to calculate the ratio between the target string
+    and each string in the list. If an exact match is found, it returns a direct "Match Found"
+    message. For strings that meet or exceed the similarity threshold, their percentage scores
+    along with the corresponding string are included in the report. If no strings meet the
+    threshold, the function notifies the caller that no similar strings were found.
+                </p>
+                <pre><code class="language python">are_strings_similar(string_to_check, string_list, source_list='', threshold=0.7)</code></pre>
+                <h4>Parameters</h4>
+                <table>
+                    <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+                    <tr><td><code>string_to_check</code></td><td>str</td><td>The string that will be compared against the list.</td></tr>
+                    <tr><td><code>string_list</code></td><td>list of str</td><td>The collection of strings to compare with.</td></tr>
+                    <tr><td><code>source_list</code></td><td>str, optional</td><td>A label or description representing the source list; this appears in the output report. Defaults to an empty string.</td></tr>
+                    <tr><td><code>threshold</code></td><td>float, optional</td><td>The minimum similarity ratio (from 0 to 1) that qualifies a string as similar. The default is 0.7 (representing 70% similarity).</td></tr>
+                </table>
+                <h4>Returns</h4>
+                <p>
+str: A report summarizing the similarity comparisons. It includes:<br>
+     - An immediate "Match Found" message if an identical string is found.<br>
+     - A detailed listing of the similarity percentages for strings that exceed the<br>
+       threshold, along with a suggestion to verify the spelling.<br>
+     - A notification if no strings in the list are similar enough.<br>
+                </p>
+                <h4>Example Usage</h4>
+                <pre><code class="language Python">
+>>> report = are_strings_similar("example", ["sample", "exemplary", "test"], "Test List")
+>>> print(report)
+Name does not match Test List!   (example)
+----------------------------------------------------------------------
+80.0% (sample)
+90.0% (exemplary)
+----------------------------------------------------------------------
+Similar matches found.  Please check for correct spelling.
+                </code></pre>
+
+                <h3 id="try_to_dvTrace">try_to_dvTrace</h3>
+                <p>
+                    This function first attempts to log the provided message along with an optional tag
+    using the dvTrace logging system. If dvTrace is not available or not started,
+    the message is printed directly to the console with a notification indicating that
+    dvTrace is not in use.
+                </p>
+                <pre><code class="language python">try_to_dvTrace(msg, tag='')</code></pre>
+                <h4>Parameters</h4>
+                <table>
+                    <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+                    <tr><td><code>msg</code></td><td>str</td><td>The message content to log or print.</td></tr>
+                    <tr><td><code>tag</code></td><td>str, optional</td><td>An optional tag categorizing the log entry. Defaults to an empty string.</td></tr>
+                </table>
+                <h4>Returns</h4>
+                <p>
+                    None
+                </p>
+                <h4>Example Usage</h4>
+                <pre><code class="language Python">
+>>> try_to_dvTrace("Initialization complete", tag="INFO")
+# If dvTrace is active, the message is logged; otherwise, it prints:
+# 'dvTrace not started (INFO):
+# Initialization complete'
+                </code></pre>
+
+                <h3 id="flag_system_error">flag_system_error</h3>
+                <p>
+                    This is used in place of extronlib.ProgramLog to provide additional debugging info, and to track issues that can reflect during the bootscreen.<br><br>
+
+    Logs a system error message and updates error tracking, optionally using debugging trace.<br><br>
+
+    This function increments a global error counter and appends the provided error message
+    to a global error report. It also logs the error using the system's logging utilities and,
+    if enabled, triggers a debugging trace of the error.
+                </p>
+                <pre><code class="language python">flag_system_error(msg, dv_trace=True)</code></pre>
+                <h4>Parameters</h4>
+                <table>
+                    <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+                    <tr><td><code>msg</code></td><td>str</td><td>The error message to log.</td></tr>
+                    <tr><td><code>dv_trace</code></td><td>bool, optional</td><td>Determines whether a debugging trace should be performed. Defaults to True</td></tr>
+                </table>
+                <h4>Returns</h4>
+                <p>
+                    None
+                </p>
+                <h4>Example Usage</h4>
+                <pre><code class="language Python">
+>>> flag_system_error("Invalid configuration detected")
+                </code></pre>
+
+                <h3 id="get_dict_name">get_dict_name</h3>
+                <p>
+                    Retrieves the name of a dictionary from the global namespace.<br><br>
+
+    This function iterates through the global variables (using `globals()`), checking each
+    to determine if it references the same dictionary object as `dic`. If a match is found,
+    the corresponding variable name is returned as a string. If no match is found, the function
+    returns `None`.
+                </p>
+                <pre><code class="language python">get_dict_name(dic)</code></pre>
+                <h4>Parameters</h4>
+                <table>
+                    <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+                    <tr><td><code>dic</code></td><td>dict</td><td>The dictionary to search for in the global scope.</td></tr>
+                </table>
+                <h4>Returns</h4>
+                <p>
+                    str or None: The name of the global variable corresponding to `dic` if found; otherwise, `None`.
+                </p>
+                <h4>Example Usage</h4>
+                <pre><code class="language Python">
+>>> my_dict = {"key": "value"}
+>>> name = get_dict_name(my_dict)
+>>> print(name)
+my_dict
+                </code></pre>
+
+                <h3 id="get_list_name">get_list_name</h3>
+                <p>
+                    Iterates through the global variables (using `globals()`) to identify the variable name that
+    references the provided list. If the list is found, its name is returned as a string; if not,
+    the function returns `None`.
+                </p>
+                <pre><code class="language python">get_list_name(lst)</code></pre>
+                <h4>Parameters</h4>
+                <table>
+                    <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+                    <tr><td><code>lst</code></td><td>list</td><td>The list object whose name is to be identified.</td></tr>
+                </table>
+                <h4>Returns</h4>
+                <p>
+                    str or None: The name of the variable pointing to `lst` if found; otherwise, `None`.
+                </p>
+                <h4>Example Usage</h4>
+                <pre><code class="language Python">
+>>> my_list = [1, 2, 3]
+>>> list_name = get_list_name(my_list)
+>>> print(list_name)
+my_list
+                </code></pre>
+
+                <h3 id="padIP">padIP</h3>
+                <p>
+                    This function takes an IPv4 address given in standard dotted-decimal notation and returns
+    a new string where each octet is formatted to three digits by adding leading zeros if necessary.
+    For example, an IP address such as '1.2.3.4' will be transformed to '001.002.003.004'.
+                </p>
+                <pre><code class="language python">padIP(ip)</code></pre>
+                <h4>Parameters</h4>
+                <table>
+                    <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+                    <tr><td><code>ip</code></td><td>str</td><td>The IPv4 address to be reformatted.</td></tr>
+                </table>
+                <h4>Returns</h4>
+                <p>
+                    str: The reformatted IP address with each octet padded to three digits.
+                </p>
+                <h4>Example Usage</h4>
+                <pre><code class="language Python">
+>>> padIP("10.0.1.1")
+'010.000.001.001'
+                </code></pre>
+
+                <h3 id="hideIP">hideIP</h3>
+                <p>
+                    This function takes an IPv4 address in dotted-decimal notation and replaces the first
+    `hidden_octets` segments with 'x'. For example, calling hideIP('192.1678.1.1', hidden_octets=3)
+    would result in 'x.x.x.1'.
+                </p>
+                <pre><code class="language python">hideIP(ip, hidden_octets=2)</code></pre>
+                <h4>Parameters</h4>
+                <table>
+                    <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+                    <tr><td><code>ip</code></td><td>str</td><td>The IPv4 address to be masked.</td></tr>
+                    <tr><td><code>hidden_octets</code></td><td>int, optional</td><td>The number of leading octets to hide. Defaults to 2.</td></tr>
+                </table>
+                <h4>Returns</h4>
+                <p>
+str: The IPv4 address with the specified number of leading octets replaced by 'x'.
+                </p>
+                <h4>Example Usage</h4>
+                <pre><code class="language Python">
+>>> hideIP('192.1678.1.1', hidden_octets=3)
+'x.x.x.1'
+                </code></pre>
+
+                <h3 id="scrollText">scrollText</h3>
+                <p>
+The function splits the given text into individual lines and then concatenates the lines
+    within a range defined by `startLine` and `startLine + blockSize`. If the `serialize` flag is
+    set to True, each line in the output block is prefixed with its zero-padded line index and a separator.
+                </p>
+                <pre><code class="language python">scrollText(startLine, blockSize, text, serialize=False)</code></pre>
+                <h4>Parameters</h4>
+                <table>
+                    <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+                    <tr><td><code>startLine</code></td><td>int</td><td>The starting index (inclusive) from which to begin extracting lines.</td></tr>
+                    <tr><td><code>blockSize</code></td><td>int</td><td>The number of lines to include in the block starting from `startLine`.</td></tr>
+                    <tr><td><code>text</code></td><td>str</td><td>The input text from which lines are extracted.</td></tr>
+                    <tr><td><code>serialize</code></td><td>bool, optional</td><td>If True, each line in the output is prefixed with its index. Defaults to False.</td></tr>
+                </table>
+                <h4>Returns</h4>
+                <p>
+str: A string composed of the selected block of text lines, each ending with a newline character.
+                </p>
+                <h4>Example Usage</h4>
+                <pre><code class="language Python">
+>>> input_text = "Line 1\nLine 2\nLine 3\nLine 4\nLine 5"
+>>> print(scrollText(1, 2, input_text, serialize=True))
+001 | Line 2
+002 | Line 3
+                </code></pre>
+
+                <h3 id="flatten">flatten</h3>
+                <p>
+This function takes a list that contains sublists and returns a new list that concatenates
+all the elements of these sublists into one continuous list. It processes the input in the
+order the sublists are provided.
+                </p>
+                <pre><code class="language python">flatten(list_of_lists)</code></pre>
+                <h4>Parameters</h4>
+                <table>
+                    <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+                    <tr><td><code>list_of_lists</code></td><td>list</td><td>A list where each element is itself a list.</td></tr>
+                </table>
+                <h4>Returns</h4>
+                <p>
+list: A new list containing all the elements from the sublists in the original order.
+                </p>
+                <h4>Example Usage</h4>
+                <pre><code class="language Python">
+>>> flatten([[1, 2], [3, 4]])
+[1, 2, 3, 4]
+                </code></pre>
+
+                <h3 id="fillList">fillList</h3>
+                <p>
+Extends a list to a specified length by appending a fill value.<br><br>
+
+This function ensures that the provided list has at least the desired number of elements.
+If the list is shorter than the specified length, the function appends the fill value until
+the list reaches the desired length. If the list is already equal to or longer than the specified
+length, it remains unchanged.
+                </p>
+                <pre><code class="language python">fillList(name_of_list, desired_length, fill='')</code></pre>
+                <h4>Parameters</h4>
+                <table>
+                    <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+                    <tr><td><code>name_of_list</code></td><td>list</td><td>The list to be extended.</td></tr>
+                    <tr><td><code>desired_length</code></td><td>int</td><td>The target length that the list should reach.</td></tr>
+                    <tr><td><code>fill</code></td><td>any, optional</td><td>The value to append to the list until it reaches the desired length. Defaults to an empty string.</td></tr>
+                </table>
+                <h4>Returns</h4>
+                <p>
+list: The original list extended to the desired length by appending the fill value as needed.
+                </p>
+                <h4>Example Usage</h4>
+                <pre><code class="language Python">
+>>> fillList([1, 2, 3], 5, 0)
+[1, 2, 3, 0, 0]
+                </code></pre>
+
+                <h3 id="create_file_tree">create_file_tree</h3>
+                <p>
+Generates a hierarchical representation of the file and subdirectory structure for a given directory.<br><br>
+
+The function builds a visual tree of the specified directory's contents. It supports adding a centered header
+to the output and recursively processes subdirectories. The indentation level increases with subdirectory depth,
+creating a clear hierarchy.
+                </p>
+                <pre><code class="language python">create_file_tree(directory='.', header='Current File Tree', indent='')</code></pre>
+                <h4>Parameters</h4>
+                <table>
+                    <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+                    <tr><td><code>directory</code></td><td>str, optional</td><td>The directory path for which the file tree is generated. Defaults to the current directory ('.').</td></tr>
+                    <tr><td><code>header</code></td><td>str, optional</td><td>A header string to be displayed at the top of the file tree. If None, no header is added. Defaults to 'Current File Tree'.</td></tr>
+                    <tr><td><code>indent</code></td><td>str, optional</td><td>A string used for indentation to reflect the current depth in the directory hierarchy. Defaults to an empty string.</td></tr>
+                </table>
+                <h4>Returns</h4>
+                <p>
+ str: A formatted string displaying the file tree structure with directories and files, using the provided
+         indentation. The structure includes customized sections based on file classifications.
+                </p>
+                <h4>Example Usage</h4>
+                <pre><code class="language Python">
+>>> print(create_file_tree(directory='./my_folder', header='My Folder Structure'))
+===================  My Folder Structure  ===================
+|-- file1.txt
+|-- file2.txt
+|-- subfolder/
+    |-- subfile1.txt
+                </code></pre>
+
+                <h3 id="SystemSettingsInfoBlock">SystemSettingsInfoBlock</h3>
+                <p>
+Generates a formatted information block containing system configuration details,
+including network settings and date/time configurations.<br><br>
+
+This function retrieves system settings from the provided processor object and then formats
+the network interface details by hiding parts of the IP addresses according to the specified
+number of octets. It consolidates repeated logic by building a dictionary of substitution values
+for the network template. General program information and date/time settings are also formatted
+using a separate template.
+                </p>
+                <pre><code class="language python">SystemSettingsInfoBlock(processor, hide_ip=_SECURITY.get('hideOctets', 2))</code></pre>
+                <h4>Parameters</h4>
+                <table>
+                    <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+                    <tr><td><code>processor</code></td><td>obj</td><td>An object providing system settings, including keys for Network, ProgramInformation, and DateTime configurations.</td></tr>
+                    <tr><td><code>hide_ip</code></td><td>int, optional</td><td>The number of IP address octets to hide when masking IP addresses. Defaults to the value from _SECURITY.get('hideOctets', 2).</td></tr>
+                </table>
+                <h4>Returns</h4>
+                <p>str: A formatted string that includes the network details for each interface as well as overall system information.
+                </p>
+                <h4>Example Usage</h4>
+                <pre><code class="language Python">
+>>> settings_block = SystemSettingsInfoBlock(system_processor)
+>>> print(settings_block)
+                </code></pre>
+                <br>
+                <hr style="border: 1px solid #000;">
+            </section>
+
+            <section id="framework-tools-fileoperations">
+                <h2>Framework Tools / File Operations</h2>
+                <p>
+                    This group of functions provides utilities for reading and writing data to different file formats (text, JSON, CSV) and
+                    ensuring directory paths exist. They offer flexibility in how data is synchronized between in-memory
+                    Python objects (lists and dictionaries) and files, with options for overwriting or updating based on
+                    file existence and a specified priority. Additionally, a helper function (dumper) facilitates the
+                    creation of human-readable string representations of Python objects, and another (pathFinder)
+                    ensures directory paths are created if they don't exist.
+                </p>
+                <table>
+                    <tr><th>Function/Class</th><th>Description</th></tr>
+                    <tr><td><a href="#updateTxtFromFile">updateTxtFromFile</a></td><td>Updates a text file with the provided list of strings.</td></tr>
+                    <tr><td><a href="#updateJson">updateJson</a></td><td>Updates a JSON file with the provided dictionary.</td></tr>
+                    <tr><td><a href="#updateCsv">updateCsv</a></td><td>Updates a CSV file with the provided dictionary.</td></tr>
+                    <tr><td><a href="#dumper">dumper</a></td><td>Build easy to read output for a given object.</td></tr>
+                    <tr><td><a href="#pathFinder">pathFinder</a></td><td>Ensures that a specified directory path exists.</td></tr>
+                </table>
+                <h3 id="updateTxtFromFile">updateTxtFromFile</h3>
+                <p>
+Looks for a text file and creates a list of strings from the file if it does not exist.
+Otherwise, it updates the local list to match the file contents.
+                </p>
+                <pre><code class="language python">updateTxtFromFile(local_list, filename, priority, file_class='file', encoding='utf-8', non_ascii_action='replace', replacement_char='*')</code></pre>
+                <h4>Parameters</h4>
+                <table>
+                    <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+                    <tr><td><code>local_list</code></td><td>list</td><td>The list object that will get updated or update the file</td></tr>
+                    <tr><td><code>filename</code></td><td>str</td><td>Path to the file</td></tr>
+                    <tr><td><code>priority</code></td><td>str</td><td>Two modes:<br>
+    (file) - if the file exists, it will overwrite the list.
+             If the file does not exist, it will create the file from the list.<br>
+    (local) - will always overwrite the file with the local list.</td></tr>
+                    <tr><td><code>file_class</code></td><td>str</td><td>Valid args: 'file' or 'rfile'</td></tr>
+                    <tr><td><code>encoding</code></td><td>str</td><td>The encoding to use when reading/writing the file. Defaults to 'utf-8'.</td></tr>
+                    <tr><td><code>non_ascii_action</code></td><td>str or None</td><td>Action to take on non-ASCII characters.<br>
+                         Valid options: None, 'strip', 'replace'.<br>
+                         - None: No action (default).<br>
+                         - 'strip': Remove non-ASCII characters.<br>
+                         - 'replace': Replace non-ASCII characters with `replacement_char`.</td></tr>
+                    <tr><td><code>replacement_char</code></td><td>str</td><td>The character to replace non-ASCII characters with if non_ascii_action is set to 'replace'. Defaults to '?'.</td></tr>
+                </table>
+                <h4>Returns</h4>
+                <p>
+                    None
+                </p>
+                <h3 id="updateJson">updateJson</h3>
+                <p>
+This function checks for an existing JSON file at the specified path. Depending on the given priority,
+the function either updates the local dictionary with the file's contents (if the file exists) or overwrites
+the file with the local dictionary. It supports two priority modes:<br>
+  - "file": If the file exists, the function updates the local dictionary with the contents of the file.
+            If the file does not exist, it creates a new JSON file from the local dictionary.<br>
+  - "local": The function always overwrites the file with the local dictionary, regardless of existing contents.
+                </p>
+                <pre><code class="language python">updateJson(local_dict, filename, priority, sort_keys=False, file_class='file')</code></pre>
+                <h4>Parameters</h4>
+                <table>
+                    <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+                    <tr><td><code>local_dict</code></td><td>dict</td><td>The dictionary that will either update the JSON file or receive updates from it.</td></tr>
+                    <tr><td><code>filename</code></td><td>str</td><td>The path to the JSON file.</td></tr>
+                    <tr><td><code>priority</code></td><td>str</td><td>A string indicating the update mode ('file' or 'local').</td></tr>
+                    <tr><td><code>sort_keys</code></td><td>bool, optional</td><td>If True, the dictionary keys in the JSON file will be sorted alphabetically. Defaults to False.</td></tr>
+                    <tr><td><code>file_class</code></td><td>str, optional</td><td>Indicates which file handling class to use ('file' or 'rfile'). Defaults to 'file'.</td></tr>
+                </table>
+                <h4>Returns</h4>
+                <p>
+Exception: Propagates exceptions related to file access and JSON operations.
+                </p>
+                <h4>Example Usage</h4>
+                <pre><code class="language Python">
+>>> my_dict = {"name": "example", "value": 42}
+>>> updateJson(my_dict, "data.json", "local", sort_keys=True)
+                </code></pre>
+                <h3 id="updateCsv">updateCsv</h3>
+                <p>
+Updates a CSV file with data from the given dictionary or creates a new file if it doesn't exist.
+
+This function uses the provided dictionary to either create a new CSV file or update an existing one based on
+the specified priority. In 'file' mode, if the CSV file exists, the function reads its content and updates the
+local dictionary with the file's values. If the file does not exist, it creates a new CSV file from the dictionary.
+When the priority is 'local', it always overwrites any existing file with the local dictionary data.<br>
+Note: The sort_keys parameter is included for interface consistency but is not used for CSV files.
+                </p>
+                <pre><code class="language python">updateCsv(local_dict, filename, priority, sort_keys=False, file_class='file')</code></pre>
+                <h4>Parameters</h4>
+                <table>
+                    <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+                    <tr><td><code>local_dict</code></td><td>dict</td><td>The dictionary containing the data to write to or update from the CSV file.</td></tr>
+                    <tr><td><code>filename</code></td><td>str</td><td>The path to the CSV file.</td></tr>
+                    <tr><td><code>priority</code></td><td>str</td><td>Operation mode. The valid values are:<br>
+                    - 'file': Update the local dictionary with file content if the file exists; otherwise, create a new file.<br>
+                    - 'local': Always overwrite the file with the local dictionary.</td></tr>
+                    <tr><td><code>sort_keys</code></td><td>bool, optional</td><td>Determines whether to alphabetize the header row. This parameter is ignored for CSV files. Defaults to False.</td></tr>
+                    <tr><td><code>file_class</code></td><td>str, optional</td><td>Specifies the file handling class to use. Valid values are 'file' or 'rfile'. Defaults to 'file'.</td></tr>
+                </table>
+                <h4>Returns</h4>
+                <p>
+Exception: Propagates any exceptions raised during file I/O or CSV processing.
+                </p>
+                <h4>Example Usage</h4>
+                <pre><code class="language Python">
+>>> my_data = {"Name": "Alice", "Age": 30}
+>>> updateCsv(my_data, "data.csv", "local")
+                </code></pre>
+                <h3 id="dumper">dumper</h3>
+                <p>
+Serializes a Python object to a JSON formatted string with options for key sorting, indentation,
+and optional type annotations for values.<br><br>
+
+This function converts a Python object into a JSON string. If "show_type" is enabled, the output
+includes type information appended to each value, formatted as "value (type)".
+                </p>
+                <pre><code class="language python">dumper(object, sort_keys=True, indent=4, default=lambda o: 'not serializable', show_type=False)</code></pre>
+                <h4>Parameters</h4>
+                <table>
+                    <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+                    <tr><td><code>object</code></td><td>Any</td><td>The Python object to serialize.</td></tr>
+                    <tr><td><code>sort_keys</code></td><td>bool, optional</td><td>If True, sorts dictionary keys alphabetically. Defaults to True.</td></tr>
+                    <tr><td><code>indent</code></td><td>int, optional</td><td>Number of spaces for indentation in the resulting JSON string. Defaults to 4.</td></tr>
+                    <tr><td><code>default</code></td><td>Callable, optional</td><td>Function to handle objects that are not JSON serializable. Defaults to a lambda returning 'not serializable'.</td></tr>
+                    <tr><td><code>show_type</code></td><td>bool, optional</td><td>If True, appends the type of each value to its string representation. Defaults to False.</td></tr>
+                </table>
+                <h4>Returns</h4>
+                <p>
+str: The JSON formatted string representation of the provided object.
+                </p>
+                <h4>Example Usage</h4>
+                <pre><code class="language Python">
+Consider the following Python object:
+
+>>> data = {
+...     "name": "Alice",
+...     "age": 30,
+...     "hobbies": ["reading", "gaming"]
+... }
+
+1. Without Type Annotations (show_type=False):
+
+>>> json_output = dumper(data, show_type=False)
+>>> print(json_output)
+{
+    "age": 30,
+    "hobbies": [
+        "reading",
+        "gaming"
+     ],
+    "name": "Alice"
+}
+
+2. With Type Annotations (show_type=True):
+
+>>> json_output = dumper(data, show_type=True)
+>>> print(json_output)
+{
+    "age": "30 (int)",
+    "hobbies": [
+        "reading (str)",
+        "gaming (str)"
+    ],
+    "name": "Alice (str)"
+}
+                </code></pre>
+                <h3 id="pathFinder">pathFinder</h3>
+                <p>
+Checks if a given path exists. If it does not exist, it creates the necessary directories.<br><br>
+
+Ensures that a specified directory path exists. If the path does not exist, the function will create
+the necessary directories.
+                </p>
+                <pre><code class="language python">pathFinder(path, file_class='file', dv_trace=False)</code></pre>
+                <h4>Parameters</h4>
+                <table>
+                    <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+                    <tr><td><code>path</code></td><td>str</td><td>The directory or file path (e.g., '/config/'). If the path represents directories that do not exist, they will be created.</td></tr>
+                    <tr><td><code>file_class</code></td><td>str, optional</td><td>Specifies the file handling class to use (for example, 'file' or 'rfile'). Defaults to 'file'.</td></tr>
+                    <tr><td><code>dv_trace</code></td><td>bool, optional</td><td>If True, logs messages indicating whether the path was found or created. Defaults to False.</td></tr>
+                </table>
+                <h4>Returns</h4>
+                <p>
+bool: Returns True if the path already existed; returns False if the path had to be created.
+                </p>
+                <h4>Example Usage</h4>
+                <pre><code class="language Python">
+Suppose the directory '/home/user/config' does not exist. Then:
+
+>>> result = pathFinder('/home/user/config', dv_trace=True)
+# The function will create the necessary directories and result will be False.
+
+If the same path is checked again:
+
+>>> result = pathFinder('/home/user/config', dv_trace=True)
+# The function will find the existing path and result will be True.
+                </code></pre>
+
+                <br>
+                <hr style="border: 1px solid #000;">
+            </section>
+
+            <section id="format-table-tools">
+                <h2>Format Table Tools</h2>
+                <p>
+
+                </p>
+                <table>
+                    <tr><th>Function/Class</th><th>Description</th></tr>
+                    <tr><td><a href="#center_text_xy">center_text_xy</a></td><td>Center text horizontally and vertically within a specified area.</td></tr>
+                    <tr><td><a href="#dvPressTrace">dvPressTrace</a></td><td>Provides trace feedback for GUI button and slider events.</td></tr>
+                    <tr><td><a href="#get_last_substring">get_last_substring</a></td><td>Returns last substring element</td></tr>
+                </table>
+                <h3 id="center_text_xy">center_text_xy</h3>
+                <p>
+Center text horizontally and vertically within a specified area.
+                </p>
+                <pre><code class="language python">center_text_xy(text, max_width, max_lines, lift=None)</code></pre>
+                <h4>Parameters</h4>
+                <table>
+                    <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+                    <tr><td><code>text</code></td><td>str</td><td>The maximum width for the centered text.</td></tr>
+                    <tr><td><code>max_width</code></td><td>int</td><td>int</td></tr>
+                    <tr><td><code>max_lines</code></td><td>int</td><td>The maximum number of lines for the centered text.</td></tr>
+                    <tr><td><code>lift</code></td><td>int, optional</td><td>The number of lines to lift the text up vertically. Default is half of the lines in text.</td></tr>
+                </table>
+                <h4>Returns</h4>
+                <p>
+                    str: The centered text.
+                </p>
+                <h3 id="dvPressTrace">dvPressTrace</h3>
+                <p>
+This function logs a trace message detailing the control event. For a button event
+(when no value is provided or value is False), it logs the device alias, button name, and state.
+For a slider event (when a value is provided), it logs the device alias, slider name, state, and the slider value.
+                </p>
+                <pre><code class="language python">center_text_xy(text, max_width, max_lines, lift=None)</code></pre>
+                <h4>Parameters</h4>
+                <table>
+                    <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+                    <tr><td><code>object</code></td><td>obj</td><td>An object representing the control. It is expected to have the following attributes:<br>
+            - Host: an object with a DeviceAlias attribute representing the device name.<br>
+            - Name: a string representing the control's name.</td></tr>
+                    <tr><td><code>state</code></td><td>str</td><td>A string describing the control's state (e.g., "Pressed", "Released", or "Changed").</td></tr>
+                    <tr><td><code>value</code></td><td>Any, optional</td><td>The current value for slider events. Defaults to False. If left as False, the event is treated as a button press.</td></tr>
+                </table>
+                <h4>Returns</h4>
+                <p>
+                    None
+                </p>
+                <h4>Example Usage</h4>
+                <pre><code class="language Python">
+For a button press event:
+
+@event(anyBtn('btn_exit_idle'), 'Pressed')
+def btn_exit_idle_event(button, state):
+dvPressTrace(button, state)
+MultiShowPage('01_Main')
+
+For a slider change event:
+
+@event(anySlider('main_slider'), 'Changed')
+def main_slider_event(slider, state, value):
+dvPressTrace(slider, state, value)
+                </code></pre>
+                <h3 id="get_last_substring">get_last_substring</h3>
+                <p>
+Returns last substring element
+                </p>
+                <pre><code class="language python">get_last_substring(s)</code></pre>
+                <h4>Parameters</h4>
+                <h4>Returns</h4>
+                <p>Returns last substring element
+                </p>
+
+                <br>
+                <hr style="border: 1px solid #000;">
+            </section>
+
+            <section id="sp-formatted-text">
+                <h2>SP Formatted Text</h2>
+                <p>
+These functions are all designed to generate formatted reports displaying the contents and structure of various internal
+databases and system settings. They provide a way to inspect the current state and configuration of different aspects of the software.
+                </p>
+                <table>
+                    <tr><th>Function/Class</th><th>Description</th></tr>
+                    <tr><td><a href="#showUiDB">showUiDB</a></td><td>Shows a list of UI database records.</td></tr>
+                    <tr><td><a href="#showmeDB">showmeDB</a></td><td>meDB - Easy access to MESet Objects</td></tr>
+                    <tr><td><a href="#showdeviceDB">showdeviceDB</a></td><td>deviceDB - Easy access to interface Objects (Serial, IR, Ethernet, etc.)</td></tr>
+                    <tr><td><a href="#showTlpDB">showTlpDB</a></td><td>Shows a list of TLP database records.</td></tr>
+                    <tr><td><a href="#showHostDB">showHostDB</a></td><td>Shows a list of Host (Processor/SPD) database records.</td></tr>
+                    <tr><td><a href="#show_gFuncDB">show_gFuncDB</a></td><td>Generates a report of all registered global functions</td></tr>
+                    <tr><td><a href="#show_frameworkDB">show_frameworkDB</a></td><td>Generates a report of all registered global functions in the documentationDB.</td></tr>
+                    <tr><td><a href="#show_SP_ToolsDB">show_SP_ToolsDB</a></td><td>Generates a report of all registered global tools in the documentationDB.</td></tr>
+                    <tr><td><a href="#show_sandbox_tools_report">show_sandbox_tools_report</a></td><td>Generates a report of all registered sandbox tools in the documentation database.</td></tr>
+                </table>
+                <h3 id="showUiDB">showUiDB</h3>
+                <p>
+Provides a representation of the current UI database for the application, detailing
+all instantiated components such as buttons, labels, sliders, and others. It generates
+a structured string report containing a directory-style tree along with metadata and
+references about the UI elements.
+                </p>
+                <pre><code class="language python">showUiDB(data_ref=False)</code></pre>
+                <h4>Parameters</h4>
+                <h4>Returns</h4>
+                <p>
+str: Returns a string containing the report requested.
+                </p>
+                <h3 id="showmeDB">showmeDB</h3>
+                <p>
+This function generates a detailed report of all the MESets created and the
+    corresponding PanelAlias on which they are installed. The report displays
+    each PanelAlias, followed by the MESet names and a list of object names within
+    those MESets. Object names are sorted alphabetically and word-wrapped using a
+    maximum line length of 2 * CLI_WIDTH, ensuring that the output does not exceed
+    this width; subsequent lines are indented to maintain readability.
+                </p>
+                <pre><code class="language python">showmeDB(data_ref=False)</code></pre>
+                <h4>Returns</h4>
+                <p>
+str: The formatted MESet Database report including a data formatting reference section.
+                </p>
+                <h4>Example Usage</h4>
+                <pre><code class="language Python">
+{
+    'PanelAlias1': {
+        'MESetName': ['btn_Name1', 'btn_Name2']
+    }
+}
+                </code></pre>
+                <h3 id="showdeviceDB">showdeviceDB</h3>
+                <p>
+Easy access to interface Objects (Serial, IR, Ethernet, etc.)
+                </p>
+                <pre><code class="language python">showdeviceDB(db_obj, data_ref=False)</code></pre>
+                <h4>Parameters</h4>
+                <table>
+                    <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+                    <tr><td><code>db_obj</code></td><td>obj</td><td>The device you wish to access</td></tr>
+                </table>
+                <h4>Returns</h4>
+                <p>
+str: Returns a string containing the interface objects in a report
+                </p>
+                <h3 id="showTlpDB">showTlpDB</h3>
+                <p>
+Generates a formatted report of the TLP panel database, categorized by panel style.<br><br>
+
+This function creates a report header with a timestamp, categorizes TLP panels by their style (e.g.,
+Virtual, Standard, Flip, Video, TLI, or Unknown), logs a trace for each panel, and appends a summary of
+panel counts. It further formats detailed panel information for each category using a common query set;
+finally, if the add_dict flag is True, the complete TLP database dump is appended.
+                </p>
+                <pre><code class="language python"></code></pre>
+                <h4>Parameters</h4>
+                <table>
+                    <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+                    <tr><td><code>data_ref</code></td><td>bool, optional</td><td>If True, appends the full panel database dump to the report. Defaults to False.</td></tr>
+                </table>
+                <h4>Returns</h4>
+                <p>
+str: The complete TLP panel database report.
+                </p>
+                <h3 id="showHostDB">showHostDB</h3>
+                <p>
+Generates and formats a detailed string representing current host database information.<br><br>
+
+This function retrieves host data from a predefined database, prepares it for display,
+and formats it into a structured string output, including key information such as model
+name, part number, alias, IP address, hostname, serial number, firmware version, MAC
+address, and any loaded files associated with each host. Additional formatting and
+substitution are applied to enhance readability and presentation. It allows insightful
+overview of system hosts in a clean tabulated form.
+                </p>
+                <pre><code class="language python">showHostDB(data_ref=False)</code></pre>
+                <h4>Returns</h4>
+                <p>
+str: A formatted string representation of the host database including relevant details for each host and reference data formatting.
+                </p>
+                <h3 id="show_gFuncDB">show_gFuncDB</h3>
+                <p>
+Global Functions are stored in `dict_global_functions`.
+Each function is assigned a numerical designator. The functions are sorted alphabetically
+in a case-insensitive manner.
+                </p>
+                <pre><code class="language python">show_gFuncDB(dict_global_functions, data_ref=False)</code></pre>
+                <h4>Parameters</h4>
+                <table>
+                    <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+                    <tr><td><code>dict_global_functions</code></td><td>dict</td><td>Dictionary containing global functions and their descriptions.</td></tr>
+                    <tr><td><code>data_ref</code></td><td>bool, optional</td><td>If True, includes a detailed data reference dump. Defaults to False.</td></tr>
+                </table>
+                <h4>Returns</h4>
+                <p>
+str: A formatted string containing the global functions report.
+                </p>
+                <h3 id="show_frameworkDB">show_frameworkDB</h3>
+                <p>
+Generates a report of all registered global functions in the documentationDB. Each function is assigned a numeric designator.
+                </p>
+                <pre><code class="language python">show_frameworkDB(data_ref=False)</code></pre>
+                <h4>Returns</h4>
+                <p>
+str: Returns a report of the registered global functions in the documentation database.
+                </p>
+                <h3 id="show_SP_ToolsDB">show_SP_ToolsDB</h3>
+                <p>
+Generates a report of all registered tools and features in the SP Tools documentation database.
+Each function is assigned a numeric designator.
+                </p>
+                <pre><code class="language python">show_SP_ToolsDB(data_ref=False)</code></pre>
+                <h4>Returns</h4>
+                <p>
+return: Formatted string containing the report.
+                </p>
+                <h3 id="show_sandbox_tools_report">show_sandbox_tools_report</h3>
+                <p>
+This function generates a formatted report listing all functions and features registered in the
+sandbox documentation database (__sp_var.sandbox_docsDB). Each entry is assigned a numeric designator.
+                </p>
+                <pre><code class="language python">show_sandbox_tools_report(data_ref=False)</code></pre>
+                <h4>Returns</h4>
+                <p>
+return: Formatted string containing the report.
+                </p>
+                <br>
+                <hr style="border: 1px solid #000;">
+            </section>
+        </main>
+    </div>
+</body>
+</html>

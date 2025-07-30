@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sandbox Configuration</title>
+    <link rel="stylesheet" href="assets/styles.css">
+    <link rel="stylesheet" href="assets/highlight/styles/atom-one-dark.css">
+    <script src="assets/highlight/highlight.min.js"></script>
+    <script src="assets/script.js"></script> <!-- ! External script file -->
+    <script>hljs.highlightAll();</script>
+    <style>
+
+        #sidebar-container {
+            width: 25%; /* ! Sidebar max width set to 40% */
+            max-width: 25%;
+        }
+        .content {
+            flex-grow: 1; /* Ensures the content takes up the remaining space */
+            max-width: 75%;
+            padding-left: 20px; /* Adjust spacing as needed */
+}
+        table {
+            max-width: 40%; /* ! Table max width set to 40% */
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="sidebar-container">
+            <aside class="sidebar">
+    <div class="logo">
+        <a href="index.html">
+            <img src="_images/logo.png" alt="Framework Logo">
+        </a>
+    </div>
+
+    <h2>Framework</h2>
+    <ul>
+        <li>
+            <a>About The Framework</a>
+            <!-- ! Submenu -->
+            <ul>
+                <li><a href="general.html">General</a></li>
+                <li><a href="tools.html">SP Tools</a></li>
+                <li><a href="file-structure.html">File / Folder Structure</a></li>
+<!--                <li><a href="file-order.html">File Import Order</a></li>-->
+            </ul>
+        </li>
+        <li>
+            <a>Framework Essentials</a>
+            <!-- ! Submenu -->
+            <ul>
+                <li><a href="essentials.html#host-management">Host Management</a></li>
+                <li><a href="essentials.html#global-functions">Global Functions</a></li>
+                <li><a href="essentials.html#global-timers">Global Timers</a></li>
+                <li><a href="essentials.html#ui-hosts_tlps">UI Hosts / TLPs</a></li>
+                <li><a href="essentials.html#trace_print-tools">Trace / Print Tools</a></li>
+                <li><a href="essentials.html#console-management">Console Management</a></li>
+                <li><a href="essentials.html#building-ui-elements">Building UI Elements</a></li>
+                <li><a href="essentials.html#access-ui-elements">Access UI Elements</a></li>
+                <li><a href="essentials.html#me-set-tools">ME Set Tools</a></li>
+                <li><a href="essentials.html#ui-element-set-tools">UI Element Set Tools</a></li>
+                <li><a href="essentials.html#page-popup-navigation">Page / Popup Navigation</a></li>
+            </ul>
+        </li>
+                <li>
+            <li><a href="gui-design.html">GUI Design Principles</a></li>
+            <!-- ! Submenu -->
+        <li>
+            <a href="boot-agent.html">Boot Agent</a>
+        </li>
+
+        <h2>Plug-ins</h2>
+        <li>
+            <a>Configuration Files</a>
+            <!-- ! Submenu -->
+            <ul>
+                <li><a href="configuration-files.html#device-config">Device Configuration</a></li>
+                <li><a href="configuration-files.html#matrix-config">Matrix Configuration</a></li>
+            </ul>
+        </li>
+
+        <h2>Sandbox</h2>
+        <li><a href="sandbox.html">What is a Sandbox?</a></li>
+        <li>
+            <a href="defining-a-sandbox.html">Defining a Sandbox</a>
+            <!-- ! Submenu -->
+        </li>
+        <li><a href="sandbox-config.html">Sandbox Config</a></li>
+
+        <h2>Code Examples</h2>
+        <li><a href="example-creating-elements.html">Creating Elements</a></li>
+
+    </ul>
+
+
+    <h3>Quick Search</h3>
+    <!-- Search input - event listener attached in JavaScript -->
+    <input type="text" id="search" placeholder="Search...">
+</aside>
+
+        </div> <!-- ! Sidebar will be inserted here dynamically -->
+
+        <main class="content">
+            <h1>Sandbox Configuration</h1>
+
+            <section id="introduction">
+                <h2>Introduction</h2>
+                <p>
+                    After defining the basic structure and boundaries of a sandbox, the next step is to configure it to meet the specific requirements of your control system project. 
+                    Sandbox configuration involves taking the room requirements and translating them into specific settings and parameters that define how the system will operate.
+                </p>
+                <p>
+                    The SP Framework provides a structured approach to sandbox configuration, using a combination of configuration files and code-based settings to create a flexible and maintainable control system.
+                    This page explains the process of configuring a sandbox after its initial definition, focusing on how to implement room requirements into a working control system.
+                </p>
+            </section>
+
+            <section id="configuration-process">
+                <h2>Configuration Process Overview</h2>
+                <p>
+                    Configuring a sandbox in the SP Framework involves several key steps that transform room requirements into a functional control system:
+                </p>
+                <ol>
+                    <li><strong>Preparing Configuration Files</strong> - Creating and populating the necessary CSV files based on room requirements</li>
+                    <li><strong>Setting Sandbox Parameters</strong> - Configuring the sandbox_config dictionary with appropriate values</li>
+                    <li><strong>Importing Device Configurations</strong> - Loading device definitions from CSV files</li>
+                    <li><strong>Importing Matrix Configurations</strong> - Setting up signal routing paths</li>
+                    <li><strong>Validating the Configuration</strong> - Ensuring the configuration meets the defined sandbox walls</li>
+                </ol>
+            </section>
+
+            <section id="preparing-config-files">
+                <h2>Preparing Configuration Files</h2>
+                <p>
+                    The first step in configuring a sandbox is to prepare the necessary configuration files based on the room requirements. 
+                    The SP Framework uses CSV files for configuration, which are easy to create, edit, and maintain.
+                </p>
+
+                <h3>Device Configuration File</h3>
+                <p>
+                    The deviceConfig.csv file defines all hardware devices that are part of your control system. 
+                    To create this file based on room requirements:
+                </p>
+                <ol>
+                    <li>Identify all hardware devices required for the room (displays, DSPs, matrices, cameras, etc.)</li>
+                    <li>Determine the connection parameters for each device (IP address, port, etc.)</li>
+                    <li>Assign appropriate modules to each device based on its type and manufacturer</li>
+                    <li>Create the deviceConfig.csv file with the required columns (name, type, module, Host, Port, DeviceAlias, Mfg, Model)</li>
+                </ol>
+
+                <h3>Matrix Configuration File</h3>
+                <p>
+                    The matrixConfig.csv file defines the signal routing paths in your control system. 
+                    To create this file based on room requirements:
+                </p>
+                <ol>
+                    <li>Identify all input sources required for the room (PCs, laptops, media players, etc.)</li>
+                    <li>Identify all output destinations (displays, recorders, streaming encoders, etc.)</li>
+                    <li>Map inputs and outputs to physical ports on the matrix switcher</li>
+                    <li>Create the matrixConfig.csv file with the required columns (matrix, ioKey, ioSecLvl, ioType, ioPort, uiLabel, uiIcon)</li>
+                </ol>
+
+                <p>
+                    For detailed information about the format and structure of these configuration files, refer to the 
+                    <a href="configuration-files.html">Configuration Files</a> documentation.
+                </p>
+            </section>
+
+            <section id="setting-sandbox-parameters">
+                <h2>Setting Sandbox Parameters</h2>
+                <p>
+                    The sandbox_config dictionary in __sandbox_variables.py contains the parameters that define the boundaries and capabilities of your control system. 
+                    Based on the room requirements, you need to configure these parameters appropriately.
+                </p>
+
+                <h3>Key Configuration Parameters</h3>
+                <p>
+                    The sandbox_config dictionary includes several key sections that need to be configured:
+                </p>
+                <ul>
+                    <li>
+                        <strong>Display Limits</strong> - Set the maximum and minimum number of displays based on the room requirements
+                    </li>
+                    <li>
+                        <strong>Input Limits</strong> - Set the maximum and minimum number of input sources based on the room requirements
+                    </li>
+                    <li>
+                        <strong>Classifications</strong> - Configure the security classifications supported by the system
+                    </li>
+                    <li>
+                        <strong>Room Information</strong> - Set details about the room where the system is installed
+                    </li>
+                    <li>
+                        <strong>Default Settings</strong> - Configure default values for various system parameters
+                    </li>
+                    <li>
+                        <strong>Feature Flags</strong> - Enable or disable system capabilities based on room requirements
+                    </li>
+                    <li>
+                        <strong>Hosts</strong> - Configure the host devices that will be used in the system
+                    </li>
+                </ul>
+
+                <h3>Host Configuration</h3>
+                <p>
+                    The 'hosts' section of the sandbox_config dictionary is particularly important as it defines the processors and other host devices that will be used in the system. 
+                    This configuration is typically done as follows:
+                </p>
+                <pre><code class="language-python">sandbox_config['hosts'] = {}
+sandbox_config['hosts']['All'] = \
+    {
+        "Processor_Main": "Main Processor",
+        "Processor_Aux": "Auxiliary Processor",
+        "SPD_1": "Secure Platform Device 1"
+    }
+sandbox_config['hosts']["Default"]= "Processor_Main"</code></pre>
+            </section>
+
+            <section id="importing-device-configs">
+                <h2>Importing Device Configurations</h2>
+                <p>
+                    After preparing the deviceConfig.csv file, you need to import the device configurations into the sandbox. 
+                    This is done using the import_devicesConfig_CSV function provided by __sandbox_devices_csv.py.
+                </p>
+
+                <h3>Device Import Process</h3>
+                <p>
+                    During system initialization, the SP Framework loads the deviceConfig.csv file and processes it as follows:
+                </p>
+                <ol>
+                    <li>The file is read by the import_devicesConfig_CSV function</li>
+                    <li>Each row in the CSV is converted into a device object with the specified parameters</li>
+                    <li>The device objects are registered with the system and become available for use</li>
+                    <li>The appropriate module (specified in the 'module' column) is loaded for each device</li>
+                </ol>
+
+                <h3>Device Access</h3>
+                <p>
+                    Once the devices are imported and registered, they can be accessed in your code using the gDevice function provided by __sandbox_tools.py:
+                </p>
+                <pre><code class="language-python">from sandbox.__sandbox_tools import gDevice
+
+# Access a device by its name
+display = gDevice('Display_Main')
+matrix = gDevice('Matrix_Main')</code></pre>
+            </section>
+
+            <section id="importing-matrix-configs">
+                <h2>Importing Matrix Configurations</h2>
+                <p>
+                    After preparing the matrixConfig.csv file, you need to import the matrix configurations into the sandbox. 
+                    This is done using the import_matrixConfig_CSV function provided by __sandbox_routing_csv.py.
+                </p>
+
+                <h3>Matrix Import Process</h3>
+                <p>
+                    During system initialization, the SP Framework loads the matrixConfig.csv file and processes it as follows:
+                </p>
+                <ol>
+                    <li>The file is read by the import_matrixConfig_CSV function</li>
+                    <li>The system creates a database of inputs and outputs based on the CSV data</li>
+                    <li>Routing paths are established based on the matrix definitions</li>
+                    <li>The UI is updated with the appropriate labels and icons for each input and output</li>
+                </ol>
+            </section>
+
+            <section id="validating-configuration">
+                <h2>Validating the Configuration</h2>
+                <p>
+                    After configuring the sandbox, it's important to validate that the configuration meets the defined sandbox walls. 
+                    This ensures that the system operates within the specified parameters and prevents operations that could lead to inconsistent behavior or errors.
+                </p>
+
+                <h3>Validation Checks</h3>
+                <p>
+                    The validation process typically includes the following checks:
+                </p>
+                <ul>
+                    <li>Ensuring the number of displays is within the defined minimum and maximum limits</li>
+                    <li>Ensuring the number of input sources is within the defined minimum and maximum limits</li>
+                    <li>Verifying that all devices have the required modules available</li>
+                    <li>Checking that all routing paths are valid and within the capabilities of the matrix switcher</li>
+                    <li>Validating that all enabled features are properly configured</li>
+                </ul>
+            </section>
+
+            <section id="sandbox-implementation-workflow">
+                <h2>Sandbox Implementation Workflow</h2>
+                <p>
+                    The complete process of implementing a sandbox follows this workflow:
+                </p>
+
+                <h3>1. Project Scope Definition</h3>
+                <ul>
+                    <li><strong>Define Room Type</strong> - Categorize spaces based on functionality and requirements</li>
+                    <li><strong>Determine Equipment Type</strong> - Identify the appropriate technology solutions for each space</li>
+                </ul>
+
+                <h3>2. Determine Equipment Footprint</h3>
+                <ul>
+                    <li><strong>Models of displays</strong> - Select appropriate display technologies and sizes</li>
+                    <li><strong>Cameras, Codecs</strong> - Choose video capture and processing equipment</li>
+                    <li><strong>Matrix Switchers</strong> - Determine signal routing and distribution needs</li>
+                    <li><strong>DSP's</strong> - Select audio processing solutions</li>
+                </ul>
+
+                <h3>3. Determine Sandbox Walls</h3>
+                <ul>
+                    <li><strong>Min-Max displays</strong> - Define the range of supported display configurations</li>
+                    <li><strong>Min-Max Inputs</strong> - Establish input capacity requirements and limitations</li>
+                    <li><strong>Supported Classifications</strong> - Identify security and compliance requirements</li>
+                </ul>
+
+                <h3>4. Determine Control Footprint / Deltas</h3>
+                <ul>
+                    <li><strong>Cameras</strong> - Define camera control requirements and presets</li>
+                    <li><strong>Codecs, Blu-ray</strong> - Configure media playback and conferencing controls</li>
+                    <li><strong>Audio, Time Zone Clocks</strong> - Set up audio management and time displays</li>
+                    <li><strong>Messaging</strong> - Implement notification and communication systems</li>
+                </ul>
+            </section>
+
+            <section id="best-practices">
+                <h2>Best Practices</h2>
+                <p>
+                    When configuring a sandbox, consider the following best practices:
+                </p>
+
+                <ul>
+                    <li>
+                        <strong>Clear Configuration</strong> - Define clear parameters in your sandbox_config dictionary, 
+                        including minimum and maximum values for key parameters.
+                    </li>
+                    <li>
+                        <strong>Consistent CSV Formats</strong> - Maintain consistent formats for device and matrix configuration CSV files 
+                        to ensure proper importing.
+                    </li>
+                    <li>
+                        <strong>Organized Directory Structure</strong> - Follow the established directory structure with protected_device_files 
+                        and protected_routing_files to maintain clarity.
+                    </li>
+                    <li>
+                        <strong>Proper Module Registration</strong> - Ensure all modules are properly registered in the moduleLibrary 
+                        for use within the sandbox.
+                    </li>
+                    <li>
+                        <strong>Documentation</strong> - Document your sandbox configuration thoroughly, including the purpose of each file 
+                        and configuration parameter.
+                    </li>
+                    <li>
+                        <strong>Version Control</strong> - Store configuration files in version control to track changes over time and facilitate collaboration.
+                    </li>
+                    <li>
+                        <strong>Backup Configurations</strong> - Always maintain backups of working configurations before making changes.
+                    </li>
+                    <li>
+                        <strong>Testing</strong> - Test your sandbox configuration thoroughly to ensure that it behaves as expected in all situations, including edge cases.
+                    </li>
+                </ul>
+            </section>
+
+            <section id="conclusion">
+                <h2>Conclusion</h2>
+                <p>
+                    Configuring a sandbox is a critical step in creating a robust and maintainable control system with the SP Framework. 
+                    By properly configuring the sandbox files and following the established workflow, you can create control systems that are:
+                </p>
+                <ul>
+                    <li>
+                        <strong>Scalable</strong> - Easily adapt to different room sizes and requirements by adjusting configuration files
+                    </li>
+                    <li>
+                        <strong>Maintainable</strong> - Separate configuration from code for easier updates and modifications
+                    </li>
+                    <li>
+                        <strong>Consistent</strong> - Ensure uniform behavior across different installations
+                    </li>
+                    <li>
+                        <strong>Secure</strong> - Enforce security and compliance requirements through defined boundaries
+                    </li>
+                </ul>
+                <p>
+                    The sandbox approach, with its structured configuration process, provides a solid foundation 
+                    for building reliable and adaptable control systems that meet the specific requirements of your projects.
+                </p>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

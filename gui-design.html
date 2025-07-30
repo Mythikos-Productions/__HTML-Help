@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GUI Design Principles</title>
+    <link rel="stylesheet" href="assets/styles.css">
+    <link rel="stylesheet" href="assets/highlight/styles/atom-one-dark.css">
+    <script src="assets/highlight/highlight.min.js"></script>
+    <script src="assets/script.js"></script> <!-- ! External script file -->
+    <script>hljs.highlightAll();</script>
+    <style>
+        #sidebar-container {
+            width: 25%; /* ! Sidebar max width set to 25% */
+            max-width: 25%;
+        }
+        .content {
+            flex-grow: 1; /* Ensures the content takes up the remaining space */
+            max-width: 75%;
+            padding-left: 20px; /* Adjust spacing as needed */
+        }
+        table {
+            max-width: 80%; /* ! Table max width set to 80% */
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="sidebar-container">
+            <aside class="sidebar">
+    <div class="logo">
+        <a href="index.html">
+            <img src="_images/logo.png" alt="Framework Logo">
+        </a>
+    </div>
+
+    <h2>Framework</h2>
+    <ul>
+        <li>
+            <a>About The Framework</a>
+            <!-- ! Submenu -->
+            <ul>
+                <li><a href="general.html">General</a></li>
+                <li><a href="tools.html">SP Tools</a></li>
+                <li><a href="file-structure.html">File / Folder Structure</a></li>
+<!--                <li><a href="file-order.html">File Import Order</a></li>-->
+            </ul>
+        </li>
+        <li>
+            <a>Framework Essentials</a>
+            <!-- ! Submenu -->
+            <ul>
+                <li><a href="essentials.html#host-management">Host Management</a></li>
+                <li><a href="essentials.html#global-functions">Global Functions</a></li>
+                <li><a href="essentials.html#global-timers">Global Timers</a></li>
+                <li><a href="essentials.html#ui-hosts_tlps">UI Hosts / TLPs</a></li>
+                <li><a href="essentials.html#trace_print-tools">Trace / Print Tools</a></li>
+                <li><a href="essentials.html#console-management">Console Management</a></li>
+                <li><a href="essentials.html#building-ui-elements">Building UI Elements</a></li>
+                <li><a href="essentials.html#access-ui-elements">Access UI Elements</a></li>
+                <li><a href="essentials.html#me-set-tools">ME Set Tools</a></li>
+                <li><a href="essentials.html#ui-element-set-tools">UI Element Set Tools</a></li>
+                <li><a href="essentials.html#page-popup-navigation">Page / Popup Navigation</a></li>
+            </ul>
+        </li>
+                <li>
+            <li><a href="gui-design.html">GUI Design Principles</a></li>
+            <!-- ! Submenu -->
+        <li>
+            <a href="boot-agent.html">Boot Agent</a>
+        </li>
+
+        <h2>Plug-ins</h2>
+        <li>
+            <a>Configuration Files</a>
+            <!-- ! Submenu -->
+            <ul>
+                <li><a href="configuration-files.html#device-config">Device Configuration</a></li>
+                <li><a href="configuration-files.html#matrix-config">Matrix Configuration</a></li>
+            </ul>
+        </li>
+
+        <h2>Sandbox</h2>
+        <li><a href="sandbox.html">What is a Sandbox?</a></li>
+        <li>
+            <a href="defining-a-sandbox.html">Defining a Sandbox</a>
+            <!-- ! Submenu -->
+        </li>
+        <li><a href="sandbox-config.html">Sandbox Config</a></li>
+
+        <h2>Code Examples</h2>
+        <li><a href="example-creating-elements.html">Creating Elements</a></li>
+
+    </ul>
+
+
+    <h3>Quick Search</h3>
+    <!-- Search input - event listener attached in JavaScript -->
+    <input type="text" id="search" placeholder="Search...">
+</aside>
+
+        </div> <!-- ! Sidebar will be inserted here dynamically -->
+
+        <main class="content">
+            <h1>GUI Design Principles</h1>
+
+            <section id="introduction">
+                <h2>Introduction</h2>
+                <p>
+                    Effective GUI design is crucial for creating control systems that are both functional and user-friendly. 
+                    The SP Framework provides a structured approach to GUI development that ensures consistency, 
+                    scalability, and maintainability across different projects. This guide outlines the principles 
+                    and best practices for designing GUIs that work seamlessly with the SP Framework.
+                </p>
+            </section>
+
+            <section id="customization">
+                <h2>Customization</h2>
+                <p>
+                    Building touch panel GUIs that support your sandbox and all of its functionality requires a systematic approach. 
+                    The SP Framework is designed to make this process more manageable by providing a structured way to create, 
+                    customize, and maintain touch panel interfaces.
+                </p>
+
+                <div class="image-container">
+                    <img src="_images/01_Main.png" alt="Main GUI Interface" style="max-width: 100%; height: auto; margin: 20px 0;">
+                </div>
+
+                <h3>Understanding the Sandbox Environment</h3>
+                <p>
+                    Before customizing your GUI, it's essential to understand how the sandbox environment works within the SP Framework:
+                </p>
+                <ul>
+                    <li>The sandbox provides a controlled environment for testing and deploying control systems</li>
+                    <li>It defines the boundaries of your system, including supported devices, inputs, outputs, and functionality</li>
+                    <li>The sandbox configuration files determine what features are available to your GUI</li>
+                </ul>
+
+                <h3>GUI Development Process</h3>
+                <p>
+                    When building a GUI for your sandbox, follow these steps:
+                </p>
+                <ol>
+                    <li><strong>Plan Your Interface:</strong> Define the user requirements, workflow, and functionality needed</li>
+                    <li><strong>Design Page Layout:</strong> Create wireframes for each page, considering user experience and workflow</li>
+                    <li><strong>Implement Core Framework Pages:</strong> Ensure all required framework pages (prefixed with "__") are included</li>
+                    <li><strong>Create Custom Pages:</strong> Develop your application-specific pages following the naming conventions</li>
+                    <li><strong>Configure Element Properties:</strong> Set up all UI elements with proper IDs, names, and functionality</li>
+                    <li><strong>Test Within Sandbox Limits:</strong> Verify that all GUI elements work within the defined sandbox boundaries</li>
+                </ol>
+
+                <h3>Leveraging Framework Features</h3>
+                <p>
+                    The SP Framework provides several features that simplify GUI customization:
+                </p>
+                <ul>
+                    <li><strong>Global Functions:</strong> Access framework functions from any file to control UI elements</li>
+                    <li><strong>Dynamic Instantiation:</strong> Create UI elements programmatically based on configuration files</li>
+                    <li><strong>Centralized Element Management:</strong> Control UI elements from any part of your code</li>
+                    <li><strong>Consistent Styling:</strong> Apply uniform styling across all pages for a professional look</li>
+                </ul>
+
+                <h3>Integration with Sandbox Components</h3>
+                <p>
+                    Your GUI needs to interact effectively with all components defined in your sandbox:
+                </p>
+                <ul>
+                    <li>Connect UI elements to device controls defined in <code>__sandbox_devices.py</code></li>
+                    <li>Implement routing controls that work with the routing configuration in <code>__sandbox_routing_csv.py</code></li>
+                    <li>Utilize module components defined in <code>__sandbox_module_components.py</code> for specialized functionality</li>
+                    <li>Leverage the tools provided in <code>__sandbox_tools.py</code> for common GUI operations</li>
+                </ul>
+                <p>For more information on designing a sandbox visit <a href="sandbox.html">What is a Sandbox?</a></p>
+            </section>
+
+            <section id="best-practices">
+                <h2>Best Practices</h2>
+                <p>
+                    Following these best practices ensures that your GUI will work reliably with the SP Framework and be easier to maintain over time:
+                </p>
+
+                <h3>Element Naming and ID Conventions</h3>
+                <div class="image-container">
+                    <img src="_images/Element Properties.png" alt="Element Properties" style="max-width: 100%; height: auto; margin: 20px 0;">
+                </div>
+                <ul>
+                    <li>
+                        <strong>Blank Elements:</strong> If an element has no ID, use the name "blankSpace" to avoid conflicts. 
+                        This ensures that every element has a unique identifier in the system.
+                    </li>
+                    <li>
+                        <strong>Name and ID Consistency:</strong> The goal is to have no conflicts in names or element ID's. 
+                        The name and ID must be the same for each element to ensure proper functionality within the framework.
+                    </li>
+                    <li>
+                        <strong>Framework Pages:</strong> Any page with the prefix "__" (double underscore) is a framework page 
+                        that cannot be removed. It is necessary for booting and ensuring the system loads correctly. These pages 
+                        handle critical system functions and should never be modified or deleted.
+                    </li>
+                    <li>
+                        <strong>ID Numbering Scheme:</strong> Every ID # uses the 1000 number scheme. Instead of numbering an element 
+                        as 1, it should be numbered as 1001, and so on. This provides a consistent numbering system and helps avoid 
+                        conflicts with system-reserved IDs.
+                    </li>
+                </ul>
+
+                <h3>Page and Panel Configuration</h3>
+                <div class="image-container">
+                    <img src="_images/Panel Pages Example.png" alt="Panel Pages Example" style="max-width: 100%; height: auto; margin: 20px 0;">
+                </div>
+                <ul>
+                    <li>
+                        <strong>Default Page:</strong> Once the boot up is complete, the default page is always "00_Idle". 
+                        This ensures a consistent starting point for all user interactions.
+                    </li>
+                    <li>
+                        <strong>Boot Panel Alias:</strong> Boot up panel alias is always = "Panel_Main" to ensure system 
+                        functionality during boot up. This is critical for the framework to properly initialize all components.
+                    </li>
+                    <li>
+                        <strong>Auxiliary Panels:</strong> Aux panels (any panel other than the boot up panel) only need the 
+                        following framework pages: "A__Logo" and "00_Idle". This minimizes resource usage while maintaining 
+                        essential functionality.
+                    </li>
+                </ul>
+
+                <h3>Element Naming Scheme</h3>
+                <p>
+                    The SP Framework system is based on names, meaning ID's and names must match. The prefix for all elements 
+                    must be consistent with the documentation, with the following naming scheme:
+                </p>
+                <p><strong>prefix_category_differentiator_number</strong></p>
+
+                <p>Common element prefixes include:</p>
+                <table>
+                    <tr>
+                        <th>Element Type</th>
+                        <th>Prefix</th>
+                        <th>Example</th>
+                    </tr>
+                    <tr>
+                        <td>Button</td>
+                        <td>btn</td>
+                        <td>btn_source_hdmi_1001</td>
+                    </tr>
+                    <tr>
+                        <td>Slider</td>
+                        <td>sld</td>
+                        <td>sld_volume_main_1001</td>
+                    </tr>
+                </table>
+
+                <h3>Implementation Examples</h3>
+                <p>
+                    Here's an example of how to properly name and reference UI elements in your code:
+                </p>
+
+                <pre><code class="language-python"># Correct element naming in GUI design
+btn_power_on_1001 = Button(name='btn_power_on_1001', id='btn_power_on_1001')
+txt_status_power_1001 = Text(name='txt_status_power_1001', id='txt_status_power_1001')
+
+# Accessing elements in code
+def power_on_system():
+    # Using the element's full name
+    element = tlp.GetElement('btn_power_on_1001')
+    element.SetState(1)
+
+    # Update status text
+    status_text = tlp.GetElement('txt_status_power_1001')
+    status_text.SetText('System Powering On...')
+</code></pre>
+
+                <h3>Common Pitfalls to Avoid</h3>
+                <ul>
+                    <li>Using inconsistent naming patterns across different pages</li>
+                    <li>Creating elements without following the proper ID numbering scheme</li>
+                    <li>Removing or modifying framework pages (those with "__" prefix)</li>
+                    <li>Using duplicate IDs or names across different elements</li>
+                    <li>Forgetting to set the boot panel alias to "Panel_Main"</li>
+                    <li>Creating custom default pages instead of using "00_Idle"</li>
+                </ul>
+            </section>
+
+            <section id="conclusion">
+                <h2>Conclusion</h2>
+                <p>
+                    Following these GUI design principles and best practices will help you create touch panel interfaces 
+                    that work seamlessly with the SP Framework. By maintaining consistent naming conventions, proper 
+                    element configuration, and adherence to framework requirements, you'll develop GUIs that are robust, 
+                    maintainable, and provide an excellent user experience.
+                </p>
+                <p>
+                    Remember that the SP Framework is designed to make GUI development more structured and less error-prone. 
+                    By leveraging its features and following these guidelines, you can focus more on creating intuitive 
+                    user experiences and less on troubleshooting technical issues.
+                </p>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

@@ -1,0 +1,180 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+.sidebar {
+    width: 223px;
+    background-color: #002752;
+    color: white;
+    padding: 20px;
+        position: fixed; /* ! Fix the sidebar to the left of the screen */
+    top: 0; /* ! Keep it at the top */
+    left: 0; /* ! Align it to the left */
+    height: 100vh; /* ! Take full height of the viewport */
+    overflow-y: auto; /* ! Allow vertical scrolling within the sidebar if content overflows */
+    z-index: 1000; /* ! Ensure it's on top of other content */
+}
+
+.sidebar h2, .sidebar h3 {
+    color: #ffffff;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.sidebar ul li {
+    margin: 10px 0;
+}
+
+.sidebar ul li a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.sidebar input {
+    width: 100%;
+    padding: 5px;
+}
+
+/* ! Adjust the main content area to leave space for the fixed sidebar */
+.content {
+    position: absolute; /* Position it relative to the viewport */
+    left: 250px; /* Start exactly at 230px from the left */
+    right: 0; /* Allow it to extend to the right */
+    padding: 20px; /* Maintain spacing */
+    background-color: #ffffff; /* Ensure background consistency */
+}
+
+div.highlight {
+    background-color: #fff;
+    font-size: 12px;
+    max-width: 598.6px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+h1 {
+    color: #00458f;
+}
+
+h2 {
+    text-decoration: underline;
+}
+
+.logo img {
+    max-width: 223px;
+    height: auto; /* Maintain aspect ratio */
+}
+
+code {
+    background-color: #eaeaea;
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-family: monospace;
+    width: 96%; /* Ensure the table takes up the full width of the container */
+}
+
+pre {
+    background-color: #f4f4f4;
+    padding: 0.2rem 0.4rem;
+    border-left: 4px solid #00468b;
+    overflow-x: auto;
+    margin-top: .1rem;
+    width: 70%; /* Ensure the table takes up the full width of the container */
+}
+
+pre h3 {
+    margin-bottom: 0; /* Removes extra space below the heading */
+}
+
+pre code {
+    display: block;
+    margin-top: 0; /* Removes any extra margin at the top of the <code> block */
+}
+
+
+table {
+    width: 100%; /* Ensure the table takes up the full width of the container */
+    table-layout: auto; /* Makes the column widths consistent */
+    border-collapse: collapse; /* Prevents double borders */
+}
+
+th, td {
+    padding: 12px; /* Increases padding for better spacing */
+    border: 1px solid #ddd; /* Border color and style */
+    text-align: left; /* Aligns the text to the left */
+    vertical-align: top; /* Aligns text to the top */
+}
+
+th {
+    background-color: #f4f4f4; /* Light background color for header */
+    font-weight: bold; /* Makes header text bold */
+}
+
+td {
+    background-color: #fafafa; /* Light background color for data cells */
+}
+
+td:nth-child(1) {
+    width: 10%; /* Adjust width of the first column */
+}
+
+td:nth-child(2) {
+    width: 10%; /* Adjust width of the second column */
+}
+
+td:nth-child(3) {
+    width: 80%; /* Adjust width of the third column */
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9; /* Zebra striping effect for even rows */
+}
+
+tr:hover {
+    background-color: #f1f1f1; /* Highlight rows on hover */
+}
+
+/* ! Style for the main list */
+.sidebar ul {
+    list-style-type: none; /* ! Remove default list style */
+    padding-left: 0;
+}
+
+/* ! Style for submenu */
+.sidebar ul ul {
+    display: none; /* ! Hide the submenu by default */
+    padding-left: 20px; /* ! Indent the submenu */
+    font-size: 0.9em; /* ! Smaller font for the submenu */
+    list-style-type: disc; /* ! Use bullets for submenu items */
+}
+
+/* ! Style for submenu items */
+.sidebar ul ul li {
+    margin: 5px 0; /* ! Add some space between submenu items */
+}
+
+/* ! Style for submenu links to make them more distinct */
+.sidebar ul ul li a {
+    font-size: 0.9em; /* ! Smaller font size for better distinction */
+
+}
+
+.sidebar ul li a:hover {
+    font-weight: bold; /* ! Make parent item bold on hover */
+}
+
+p {
+    max-width: 80%; /* Limits width to 80% of the page */
+    /*margin: 0 auto; !* Centers the text *!*/
+}

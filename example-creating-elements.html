@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Creating Elements</title>
+<link rel="stylesheet" href="assets/styles.css">
+<link rel="stylesheet" href="assets/highlight/styles/atom-one-dark.css">
+<script src="assets/highlight/highlight.min.js"></script>
+<script src="assets/script.js"></script> <!-- ! External script file -->
+<script>hljs.highlightAll();</script>
+<style>
+
+        #sidebar-container {
+            width: 25%; /* ! Sidebar max width set to 40% */
+            max-width: 25%;
+        }
+        .content {
+            flex-grow: 1; /* Ensures the content takes up the remaining space */
+            max-width: 75%;
+            padding-left: 20px; /* Adjust spacing as needed */
+}
+        table {
+            max-width: 80%; /* ! Table max width set to 80% */
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        ol {
+            padding-left: 20px; /* Keeps standard indentation */
+        }
+
+        ol li {
+            display: grid;
+            grid-template-columns: 150px auto; /* Set consistent spacing between bold and normal text */
+            gap: 15px; /* Adjust spacing between bold and normal text */
+            margin-bottom: 10px; /* Maintain consistent spacing between list items */
+        }
+
+        ol li strong {
+            display: inline-block; /* Keeps the bold text from collapsing */
+        }}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="sidebar-container">
+            <aside class="sidebar">
+    <div class="logo">
+        <a href="index.html">
+            <img src="_images/logo.png" alt="Framework Logo">
+        </a>
+    </div>
+
+    <h2>Framework</h2>
+    <ul>
+        <li>
+            <a>About The Framework</a>
+            <!-- ! Submenu -->
+            <ul>
+                <li><a href="general.html">General</a></li>
+                <li><a href="tools.html">SP Tools</a></li>
+                <li><a href="file-structure.html">File / Folder Structure</a></li>
+<!--                <li><a href="file-order.html">File Import Order</a></li>-->
+            </ul>
+        </li>
+        <li>
+            <a>Framework Essentials</a>
+            <!-- ! Submenu -->
+            <ul>
+                <li><a href="essentials.html#host-management">Host Management</a></li>
+                <li><a href="essentials.html#global-functions">Global Functions</a></li>
+                <li><a href="essentials.html#global-timers">Global Timers</a></li>
+                <li><a href="essentials.html#ui-hosts_tlps">UI Hosts / TLPs</a></li>
+                <li><a href="essentials.html#trace_print-tools">Trace / Print Tools</a></li>
+                <li><a href="essentials.html#console-management">Console Management</a></li>
+                <li><a href="essentials.html#building-ui-elements">Building UI Elements</a></li>
+                <li><a href="essentials.html#access-ui-elements">Access UI Elements</a></li>
+                <li><a href="essentials.html#me-set-tools">ME Set Tools</a></li>
+                <li><a href="essentials.html#ui-element-set-tools">UI Element Set Tools</a></li>
+                <li><a href="essentials.html#page-popup-navigation">Page / Popup Navigation</a></li>
+            </ul>
+        </li>
+                <li>
+            <li><a href="gui-design.html">GUI Design Principles</a></li>
+            <!-- ! Submenu -->
+        <li>
+            <a href="boot-agent.html">Boot Agent</a>
+        </li>
+
+        <h2>Plug-ins</h2>
+        <li>
+            <a>Configuration Files</a>
+            <!-- ! Submenu -->
+            <ul>
+                <li><a href="configuration-files.html#device-config">Device Configuration</a></li>
+                <li><a href="configuration-files.html#matrix-config">Matrix Configuration</a></li>
+            </ul>
+        </li>
+
+        <h2>Sandbox</h2>
+        <li><a href="sandbox.html">What is a Sandbox?</a></li>
+        <li>
+            <a href="defining-a-sandbox.html">Defining a Sandbox</a>
+            <!-- ! Submenu -->
+        </li>
+        <li><a href="sandbox-config.html">Sandbox Config</a></li>
+
+        <h2>Code Examples</h2>
+        <li><a href="example-creating-elements.html">Creating Elements</a></li>
+
+    </ul>
+
+
+    <h3>Quick Search</h3>
+    <!-- Search input - event listener attached in JavaScript -->
+    <input type="text" id="search" placeholder="Search...">
+</aside>
+
+        </div> <!-- ! Sidebar will be inserted here dynamically -->
+
+<main class="content">
+
+<h2>Creating Elements</h2>
+<h3>Introduction</h3>
+<p>In this example, we will look at the different ways to import buttons, labels, and sliders.  As described
+in the <a href="file-structure.html">File/Folder Structure</a>, this file would typically be saved in the <code>Function_Files_for_UI</code> folder.
+The code blocks shown in this example are meant to be placed concurrently in your .py file, but has been broken into sections for better explanation and deep-dive.
+For a full view of the code context, see <a href="#full_sample">Full Code Sample.</a> </p>
+
+
+<h3>Dunder Headers</h3>
+<p>(Double Underscore headers)</p>
+<pre><code class="language-python">__version__ = '1.0.0'
+__framework__ = '5.0.0'
+__history__ = """
+Version     Date            Notes
+-------     ----            -----
+1.0.0       19/Jul/2024     Initial release.
+"""</code></pre>
+<p>These tags should be in every file and are used for standard versioning control management.</p>
+
+<h3>ControlScript</h3>
+<pre><code class="language-python">#### ~ Control Script  #################################################################################################
+from extronlib import event
+from extronlib.system import Timer, Wait, ProgramLog
+</code></pre>
+<p>These imports are included as part of the standard Extron ControlScript Library. For more information, see
+<a href="https://www.extron.com/featured/Control-System-Programming/programming">
+https://www.extron.com/featured/Control-System-Programming/programming</a></p>
+
+<h3>Python Built-ins</h3>
+<pre><code class="language-python">#### ~ Python Standard Import ##########################################################################################
+import json
+import re
+from collections import namedtuple, deque
+import math
+import time
+from datetime import datetime
+</code></pre>
+<p>These modules and built-ins are included as part of the standard Python library. To ensure system integrity and security,
+    not all Python modules and built-ins are allowed. Also note that some modules are only available at specific versions
+    of IPCP Pro Qxi/xi firmware. Please consult your ControlScript documentation for the latest list of disallowed built-ins
+    and base Python interpreter for the most up-to-date information. For full utilization of SP Framework, IPCP Pro Q xi
+    Series Firmware 1.10.0002-b002 or later is recommended.</p>
+
+<h3>SP Framework</h3>
+<pre><code class="language-python">#### ~ SP Framework ####################################################################################################
+from __sp_framework_files.__sp_framework import (
+    ## ! Framework essentials ##
+    BootTimerPunchOut, BootTimerPunchIn, dvTrace, aboutFramework,
+
+    ## ! Build Buttons, Labels, Functions, etc. into uiDB ##
+    MultiButtonMake, MultiLabelMake, MultiLevelMake, MultiSliderMake, MultiMESetMake, register_gFunc,
+    MultiSliderSetRange,
+
+    ## ! Global access to Buttons, Labels, Functions, etc. ##
+    anyBtn, anySlider, anyMESet, gFunc, gTimer, register_gTimer, MultiSetBlinking, MultiPlaySound,
+    getDefaultUIHost, getUIHostAlias, getDefaultHost,
+
+    ## ! Page / Button Formatting and Navigation ##
+    MultiShowPage, MultiShowPopup, MultiMESetCurrent, MultiSetText, MultiSetFill, MultiDisable, MultiSetEnable,
+    MultiSetVisible, MultiSetState, MultiHideAllPopups, MultiHidePopup, MultiSetEnable, meDB_GetCurrent, gHost
+
+)
+
+from __sp_framework_files.__sp_tools import (
+    showUiDB, showmeDB, showdeviceDB, show_gFuncDB, pathFinder, updateJson, dumper, flag_system_error, dvPressTrace,
+    showTlpDB,
+)
+
+import __sp_framework_files.__sp_variables as __sp_var
+</code></pre>
+<p>These functions, classes and helpers are described in further detail in the Framework section of this help document.
+</p>
+
+<h3>Boot Loader</h3>
+<pre><code class="language-python">## ! Open Boot Loader
+BootTimerPunchIn(__name__, ver=__version__)
+</code></pre>
+<p>This code secures timing for the boot loading process.  See Boot Loader.</p>
+
+<h3>Sandbox</h3>
+<pre><code class="language-python">#### ~ Sandbox #########################################################################################################
+import sandbox.__sandbox_variables as var
+from sandbox.__sandbox_tools import gDevice
+from sandbox.__sandbox_variables import sandbox_config
+</code></pre>
+<p>If you are utilizing the sandbox, use this section to import sandbox specific resources</p>
+
+<h3 id="full_sample">Full Code Sample</h3>
+<pre><code class="language-python">"""
+                    _____ ____
+         ._____.   / ___// __ \
+     .__/__/__/    \__ \/ /_/ /   File:           fn_coreFunctionality.py
+ .__/__/__/__/    ___/ / ____/    Programmers:    Extron Electronics -- CIT/RA
+/__/__/__/__/    /____/_/
+
+========================================================================================================================
+
+This project utilizes Structured Programming (SP) Framework.  More info about this framework in ____Full_SP_Framework_HELP.md
+
+  >> ABOUT THIS FILE:
+
+*** REFERENCE FILE FOR TEXT STRINGS.  IMPORTED, BUT NOT LISTED IN BOOT LOADER ***
+
+*** This is a required file within the SP Framework. ***
+*** No user edits recommended                        ***
+
+========================================================================================================================
+
+  __version__     Version of the File
+  __framework__   Version of the latest SP framework tested with the File
+  __history__     History tracks the File - not the framework.
+
+"""
+
+__version__ = '1.0.0'
+__framework__ = '5.0.0'
+__history__ = """
+Version     Date            Notes
+-------     ----            -----
+1.0.0       19/Jul/2024     Initial release.
+"""
+
+#### ~ Control Script  #################################################################################################
+from extronlib import event
+from extronlib.system import Timer, Wait, ProgramLog
+
+#### ~ Python Standard Import ##########################################################################################
+import json
+import re
+from collections import namedtuple, deque
+import math
+import time
+from datetime import datetime
+
+#### ~ SP Framework ####################################################################################################
+
+from __sp_framework_files.__sp_framework import (
+    ## ! Framework essentials ##
+    BootTimerPunchOut, BootTimerPunchIn, dvTrace, aboutFramework,
+
+    ## ! Build Buttons, Labels, Functions, etc. into uiDB ##
+    MultiButtonMake, MultiLabelMake, MultiLevelMake, MultiSliderMake, MultiMESetMake, register_gFunc,
+    MultiSliderSetRange,
+
+    ## ! Global access to Buttons, Labels, Functions, etc. ##
+    anyBtn, anySlider, anyMESet, gFunc, gTimer, register_gTimer, MultiSetBlinking, MultiPlaySound,
+    getDefaultUIHost, getUIHostAlias, getDefaultHost,
+
+    ## ! Page / Button Formatting and Navigation ##
+    MultiShowPage, MultiShowPopup, MultiMESetCurrent, MultiSetText, MultiSetFill, MultiDisable, MultiSetEnable,
+    MultiSetVisible, MultiSetState, MultiHideAllPopups, MultiHidePopup, MultiSetEnable, meDB_GetCurrent, gHost
+
+)
+
+from __sp_framework_files.__sp_tools import (
+    showUiDB, showmeDB, showdeviceDB, show_gFuncDB, pathFinder, updateJson, dumper, flag_system_error, dvPressTrace,
+    showTlpDB,
+)
+
+import __sp_framework_files.__sp_variables as __sp_var
+
+## ! Open Boot Loader
+BootTimerPunchIn(__name__, ver=__version__)
+
+
+
+#### ~ Sandbox #########################################################################################################
+
+import sandbox.__sandbox_variables as var
+from sandbox.__sandbox_tools import gDevice
+from sandbox.__sandbox_variables import sandbox_config
+
+#### ~ FileBound Variables #############################################################################################
+
+logo_state_list = [0, 1, 2, 3, 4, 5]
+
+# Constants for Object Range Definition
+RANGE_START = 1
+RANGE_END = 4
+DIGIT_WIDTH = 5
+
+# Build a Named Tuple Template
+nt_common_range = namedtuple('nt_common_range', 'start end width')
+
+# Create a Named Tuple for Object range standard definition
+objRange = nt_common_range(start=0, end=24, width=2)
+
+ref_popups = {
+              'btn_menu_vtc': '01a_vtc_dial',
+              'btn_menu_camera': '01a_camera',
+              'btn_menu_tuner': '01a_tuner_multi',
+              'btn_menu_signage': '01a_signage',
+              'btn_menu_clocks': '01a_clocks',
+              'btn_menu_lights': '01a_lighting',
+              'btn_menu_logo': '01a_logo',
+              'btn_menu_bluray': '01a_bluray',
+              'btn_menu_annotate': '01a_annotate'}
+
+
+
+
+#### ~ taskQueue  ######################################################################################################
+
+
+#### ~ Element Instantiation ###########################################################################################
+
+"""
+    NOTES About obj_range:
+
+    * obj_range is optional.  It uses a Tuple for start integer, end integer, and digit width.  In Multi Object functions,
+    this is used to easily make an array of objects such as buttons,sliders, labels, and levels.
+
+    BASIC USAGE EXAMPLES:
+
+    1) MultiButtonMake('btn_momentary_', obj_range=(1, 3, 2)
+        Creates buttons with the following names:
+            btn_momentary_01, btn_momentary_02, btn_momentary_03
+
+    2) MultiButtonMake('btn_momentary_', obj_range=(5, 7, 3)
+        Creates buttons with the following names:
+            btn_momentary_005, btn_momentary_006, btn_momentary_007
+
+    3) MultiButtonMake('btn_momentary_press')
+        Creates buttons with the following names:
+            btn_momentary_press
+
+    The code below shows three different methods for defining the object range:
+
+    4) Standard Tuple
+        MultiButtonMake('btn_select_', obj_range=(1, 4, 2))
+
+    5) Named Tuple
+        # Build a Named Tuple Template
+        nt_common_range = namedtuple('nt_common_range', 'start end width')
+
+        # Create a Named Tuple for Object range standard definition
+        objRange = nt_common_range(start=1, end=4, width=2)
+
+        MultiLabelMake('lbl_label_', obj_range=objRange)
+
+    6) Constants
+        # Constants for Object Range Definition
+        RANGE_START = 1
+        RANGE_END = 4
+        DIGIT_WIDTH = 5
+
+        .py
+
+        MultiButtonMake('btn_momentary_', obj_range=(RANGE_START, RANGE_END, DIGIT_WIDTH))
+
+        extr_sp_Quantum_Ultra_II_Series_v1_0_0_0.py
+"""
+
+MultiButtonMake('btn_main_classBanner', UIHosts=['Panel_Main',
+    'Panel_Aux',
+    'InternalSign_TLI',
+    'ExternalSign_TLI',])
+
+MultiButtonMake('btn_class_sel_', obj_range=objRange)
+MultiButtonMake('btn_class_color_', obj_range=objRange)
+MultiSetVisible('btn_class_sel_', False, wildcard=True)
+MultiSetVisible('btn_class_color_', False, wildcard=True)
+
+MultiButtonMake('btn_idle_room_off')
+MultiLabelMake('lbl_idle_roomMode', UIHosts=['Panel_Main',
+    'Panel_Aux',
+    'InternalSign_TLI',
+    'ExternalSign_TLI',])
+
+## ! User Agreement
+
+MultiButtonMake('btn_eula_agree')
+MultiButtonMake('btn_eula_cancel')
+
+## ! Main Menu
+MultiButtonMake('btn_menu_annotate')
+MultiButtonMake('btn_menu_routing')
+MultiButtonMake('btn_menu_vtc')
+MultiButtonMake('btn_menu_camera')
+MultiButtonMake('btn_menu_tuner')
+MultiButtonMake('btn_menu_signage')
+MultiButtonMake('btn_menu_clocks')
+MultiButtonMake('btn_menu_lights')
+MultiButtonMake('btn_menu_logo')
+MultiButtonMake('btn_menu_bluray')
+MultiMESetMake('set_menu', 'btn_menu_', wildcard=True)
+
+MultiButtonMake('btn_system_home')
+
+## ! System Sanitize
+
+MultiButtonMake('btn_sanitize_start')
+MultiButtonMake('btn_sanitize_restore')
+
+## ! Power Off
+MultiButtonMake('btn_pwrConfirm_cancel')
+MultiButtonMake('btn_pwrConfirm_agree')
+
+#### Functions #########################################################################################################
+
+class_sel_format = 'btn_class_sel_{}'
+class_color_format = 'btn_class_color_{}'
+
+
+def goto_routing_popup():
+    main_tab = var.current_routing_tab.get('main_tab')
+    sub_tab = var.current_routing_tab.get('subTab_{}'.format(main_tab))
+    dvTrace('main_tab: {} sub_tab: {}'.format(main_tab, sub_tab), 'goto_routing_popup')
+    MultiShowPopup('01a_routing_tab{}_{}'.format(main_tab, sub_tab))
+
+
+
+register_gFunc(goto_routing_popup)
+
+
+
+
+
+# ! Function to configure class buttons dynamically for all types
+def configure_class_btns():
+    # Define a class_map dictionary with consistent structure
+    class_map = {
+        'type0': ['00', '05', '10', '15', '20'],
+        'type1': ['01', '06', '11', '16', '21'],
+        'type2': ['02', '07', '12', '17', '22'],
+        'type3': ['03', '08', '13', '18', '23'],
+        'type4': ['04', '09', '14', '19', '24'],
+    }
+
+    # Define a key_color dictionary for color mapping
+    key_color = {
+        'grey': 0,
+        'green': 1,
+        'blue': 2,
+        'purple': 3,
+        'red': 4,
+        'yellow': 5,
+        'orange': 6
+    }
+
+    # Loop through each type in the class_map
+    for type_key, class_ids in class_map.items():
+        dvTrace('type_key: {}\nclass_ids: {}'.format(type_key, class_ids))
+        # Check if there are macros defined for this type
+        _records = sandbox_config['macro'].get(type_key, [])
+        # dvTrace(_records, '{}_records'.format(type_key))
+        if len(_records) > 0:
+            for index, definedMacro in enumerate(sandbox_config['macro'][type_key]):
+                class_info = sandbox_config['class'].get(type_key, {})
+                dvTrace(dumper(class_info, 'class_info'))
+                # Make the corresponding buttons visible
+                MultiSetVisible(class_sel_format.format(class_ids[index]), True)
+                MultiSetVisible(class_color_format.format(class_ids[index]), True)
+                # Prepare the display string for the button
+                makeString = '{}\n{}'.format(class_info.get('name', ''), definedMacro.get('name', ''))
+                MultiSetText(class_sel_format.format(class_ids[index]), makeString)
+                # Set the button color state
+                MultiSetState(class_color_format.format(class_ids[index]),
+                              key_color.get(class_info.get('color', 'grey')))
+
+
+
+
+def load_tracked_macro():
+
+    # Define a key_color dictionary for color mapping
+    key_color = {
+        'grey': 0,
+        'green': 1,
+        'blue': 2,
+        'purple': 3,
+        'red': 4,
+        'yellow': 5,
+        'orange': 6
+    }
+
+    _UIHosts = ['Panel_Main',
+                 'Panel_Aux',
+                 'InternalSign_TLI',
+                 'ExternalSign_TLI']
+
+    MultiSetText('lbl_idle_roomMode', var.macro_tracking.get('name'), UIHosts=_UIHosts)
+    MultiSetText('btn_main_classBanner', var.class_tracking.get('name'), UIHosts=_UIHosts)
+    MultiSetState('btn_main_classBanner', key_color.get(var.class_tracking.get('color'), 0), UIHosts=_UIHosts)
+
+    gFunc('set_quantum_text', var.class_tracking.get('name'), 'white', var.class_tracking.get('color'))
+
+    _gFuncs = var.macro_tracking.get('gFuncs')
+
+    if len(_gFuncs) > 0:
+        for daFunc in _gFuncs:
+            gFunc(daFunc)
+
+
+
+
+def initialize():
+    """
+    The initialize function is the final function called upon file load.
+    """
+
+    configure_class_btns()
+
+    ##! Close Boot Loader
+    bootLoadMessage = BootTimerPunchOut(__name__)
+    dvTrace(bootLoadMessage, 'bootLoadMessage')
+    MultiSetText('lbl_LOAD', bootLoadMessage)
+
+
+##! Global Functions
+"""
+    A gFunc (or Global Function) is a function that can be registered to trigger from any other function file
+
+    To Register a gFunc:
+    register_gFunc(get_ui_host_list, 'Retrieves the list of UI host')
+
+    To Recall a gFunc:
+    gFunc('get_ui_host_list')
+
+    NOTES: gFunc supports all arguments and keyword arguments of the recalled function.  They can be passed in like this.
+    remember - args before kwargs:
+    gFunc('get_ui_host_list', 10, 11, name='pretend_name')
+
+    .
+"""
+
+
+# register_gFunc(get_ui_host_list, 'Retrieves the list of UI host aliases based on the synchronization state.')
+
+
+#### Timers ############################################################################################################
+
+
+#### Events ############################################################################################################
+
+@event(anyBtn('btn_class_sel_', wildcard=True), 'Pressed')
+def btn_class_sel_event(button, state):
+    dvPressTrace(button, state)
+    MultiShowPopup('Modal_EULA')
+
+
+    #! Find the Correct MAcro
+    # Extract the numbers using a regular expression
+    match = button.Name.removeprefix("btn_class_sel_")
+
+    # Define a class_map dictionary with consistent structure
+    class_map = {
+        'type0': ['00', '05', '10', '15', '20'],
+        'type1': ['01', '06', '11', '16', '21'],
+        'type2': ['02', '07', '12', '17', '22'],
+        'type3': ['03', '08', '13', '18', '23'],
+        'type4': ['04', '09', '14', '19', '24'],
+    }
+    _class_type = None
+    _macro_index = None
+    for k, v in class_map.items():
+        if match in v:
+            _class_type = k
+            _macro_index = v.index(match)
+            var.macro_tracking = var.sandbox_config['macro'][_class_type][_macro_index]
+            var.class_tracking = var.sandbox_config['class'].get(_class_type, {})
+            return
+
+
+
+@event(anyBtn('btn_eula_', wildcard=True), ['Pressed', 'Released'])
+def btn_eula_event(button, state):
+    dvPressTrace(button, state)
+    if state == 'Pressed':
+        button.SetState(1)
+        if 'agree' in button.Name:
+            MultiShowPage('01_Main')
+            gFunc('powerWall', 'On')
+            gDevice('ctrl_GPO_side').Set('Power', 'On')
+
+            MultiShowPage('00_Idle_Interior', UIHosts=['InternalSign_TLI'])
+
+            load_tracked_macro()
+
+        MultiHidePopup('Modal_EULA')
+    else:
+        button.SetState(0)
+
+
+@event(anyMESet('set_menu'), 'Pressed')
+def btn_menu_event(button, state):
+    dvPressTrace(button, state)
+    if 'routing' in button.Name:
+        goto_routing_popup()
+    else:
+        MultiShowPopup(ref_popups.get(button.Name))
+    MultiMESetCurrent('set_menu', button.Name, UIHosts=getUIHostAlias(button))
+
+
+@event(anyBtn('btn_system_home'), 'Pressed')
+def btn_system_home_event(button, state):
+    dvPressTrace(button, state)
+    MultiShowPage('00_Idle', UIHosts=getUIHostAlias(button))
+
+
+@event(anyBtn('btn_sanitize_', wildcard=True), 'Pressed')
+def btn_sanitize_event(button, state):
+    dvPressTrace(button, state)
+    if 'start' in button.Name:
+        MultiShowPopup('modal_sanitized')
+        gDevice('ctrl_GPO_side').Set('Power', 'Off')
+        gFunc('sanitize_quantum', 'On')
+        gFunc('sanitize_dsp', 'On')
+    else:
+        MultiHidePopup('modal_sanitized')
+        gDevice('ctrl_GPO_side').Set('Power', 'On')
+        gFunc('sanitize_quantum', 'Off')
+        gFunc('sanitize_dsp', 'Off')
+
+
+@event(anyBtn('btn_idle_room_off'), 'Pressed')
+def btn_idle_room_off_event(button, state):
+    dvPressTrace(button, state)
+    MultiShowPopup('Modal_PowerConfirm', UIHosts=getUIHostAlias(button))
+
+
+@event(anyBtn('btn_pwrConfirm_', wildcard=True), 'Pressed')
+def btn_pwrConfirm__event(button, state):
+    dvPressTrace(button, state)
+    MultiHidePopup('Modal_PowerConfirm', UIHosts=getUIHostAlias(button))
+    if 'agree' in button.Name:
+        gFunc('powerWall', 'Off')
+        gDevice('ctrl_GPO_side').Set('Power', 'Off')
+        _UIHosts = ['Panel_Main', 'Panel_Aux', 'InternalSign_TLI', 'ExternalSign_TLI', ]
+        MultiSetText('btn_main_classBanner',
+                     'SYSTEM OFF', UIHosts=_UIHosts)
+        MultiSetState('btn_main_classBanner',
+                      0, UIHosts=_UIHosts)
+        MultiSetText('lbl_idle_roomMode', 'System Off', UIHosts=_UIHosts)
+
+
+initialize()
+
+</code></pre>
+<p>This is everything in one spot</p>
+
+
+
+        </main>
+    </div>
+</body>
+</html>

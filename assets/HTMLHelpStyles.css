@@ -1,0 +1,1477 @@
+/*<meta />*/
+
+@namespace MadCap url(http://www.madcapsoftware.com/Schemas/MadCap.xsd);
+
+/*<meta sourceDocument="C:\Users\cpeace\Downloads\Part+Numbers+Reference+Table.doc" />*/
+
+/*
+Version B_091814
+
+Contents
+WebHelp or Overall Settings
+[1.01]	General
+[1.02]	Text Blocks
+[1.03]	Note Notifications
+[1.04]	Attention Notifications
+[1.05]	Caution Notifications
+[1.06]	Warning Notifications
+[1.07]	Danger Notifications
+[1.08]	Tables
+[1.09]	Headings
+[1.10]	Lists
+[1.11]	Images
+[1.12]	Characters
+
+PDF
+[2.01]	General
+[2.02]	Paragraphs
+[2.03]	Tables
+[2.04]	Headings
+[2.05]	Lists
+[2.06]	Images
+[2.07]	Characters
+[2.08]	MadCap Table of Contents
+
+################################################################################
+	WebHelp
+################################################################################
+*/
+
+/*
+@media WebHelp
+{*/
+
+/* ************************************************************************** */
+/* [1.01] General													    	  */
+/* Default settings for WebHelp. Sets margins and fonts. */
+
+body
+{
+	margin-right: 0px;
+	margin-left: 0px;
+	width: 100%;
+	text-align: left;
+	font-family: Arial, sans-serif;
+	font-size: 10pt;
+	mc-hyphenate: never;
+	counter-reset: section;
+	counter-reset: subsection;
+}
+
+/* [1.02] Text Blocks													 	  */
+/* *************************************************************************  */
+
+/* Default paragraph properties. Sets spacing before and after. Inherits 
+margins, font, and hyphenation from body element. */
+
+p
+{
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+p.absolute
+{
+	margin-left: 0px;
+	margin-top: 2px;
+	margin-bottom: 2px;
+	padding-right: 2px;
+}
+
+/* Properties for WebHelp to align with H1 and text divider */
+
+p.noIndent
+{
+	margin-left: 0px;
+}
+
+/* Properties for WebHelp footer information. Inherits font from body element.*/
+
+p.footer
+{
+	font-size: 8pt;
+	font-style: italic;
+	margin-bottom: 3px;
+	margin-top: 3px;
+	text-align: center;
+}
+
+/* Properties for firmware release notes build time information information. Inherits font from body element.*/
+
+p.FWRN_WIP
+{
+	margin-top: 1px;
+	margin-bottom: 10px;
+	font-weight: bold;
+	mc-next-tag: p;
+	margin: .80em 0;
+	font-size: 12pt;
+	font-family: Arial;
+	color: #ff0000;
+}
+
+p.TableRowSectionNum::before
+{
+	counter-reset: subsection;
+	counter-increment: section;
+	content: counter(section) " ";
+}
+
+p.TableRowSubSectionNum::before
+{
+	counter-increment: subsection;
+	content: counter(section) "." counter(subsection) " ";
+}
+
+/* Default div properties. Used with notifications or for indentation. Inherits 
+width, font, and hyphenation from body element. */
+
+div
+{
+	padding-left: 6px;
+	page-break-inside: avoid;
+}
+
+pre
+{
+	mc-hidden: hidden;
+}
+
+fieldset
+{
+	mc-hidden: hidden;
+}
+
+address
+{
+	mc-hidden: hidden;
+}
+
+/* [1.03] Note Notifications												  */
+
+/* Visual properties for Note notifications. Inherits font and hyphenation from
+the body element. Inherits its width from the parent element. */
+
+div.note
+{
+	margin-bottom: 5px;
+	border-width: 2px;
+	border-style: solid;
+	border-color: #293896;
+	padding-top: 2px;
+	padding-right: 2px;
+	padding-bottom: 2px;
+	background-color: #ffffff;
+}
+
+/* Default paragraph properties nested in a note div. Sets margins to 0 so the
+padding of the .note class remain unaffected. */
+
+div.note p
+{
+	margin-top: 0px;
+	margin-bottom: 0px;
+	padding-bottom: 0px;
+}
+
+/* First line for a note (singular). */
+
+div.note p.firstEnglish
+{
+	text-indent: 6px;
+	mc-auto-number-format: '{b}NOTE:{/b}    ';
+}
+
+/* First line for notes (plural). */
+
+div.note p.firstEnglishPlural
+{
+	text-indent: 6px;
+	mc-auto-number-format: '{b}NOTES:{/b}    ';
+}
+
+/* Paragraph properties for additional paragrahs in a Note. Sets space between
+paragraphs. Inherits left margin from div.note and font from the body element.*/
+
+div.note p.additional
+{
+	margin-top: 5px;
+	text-indent: 15px;
+}
+
+div.note ul
+{
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+div.note ol
+{
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+/* [1.03] Important Notifications												  */
+
+/* Visual properties for Important notifications. Inherits font and hyphenation from
+the body element. Inherits its width from the parent element. */
+
+div.important
+{
+	margin-bottom: 5px;
+	border-width: 2px;
+	border-style: solid;
+	border-color: #293896;
+	padding-top: 2px;
+	padding-right: 2px;
+	padding-bottom: 2px;
+	background-color: #ffffff;
+}
+
+/* Default paragraph properties nested in an important div. Sets margins to 0 so the
+padding of the .note class remain unaffected. */
+
+div.important p
+{
+	margin-top: 0px;
+	margin-bottom: 0px;
+	padding-bottom: 0px;
+}
+
+/* First line for a important (singular). */
+
+div.important p.firstEnglish
+{
+	text-indent: 8px;
+	mc-auto-number-format: '{b}IMPORTANT:{/b}    ';
+}
+
+/* Paragraph properties for additional paragrahs in an Important. Sets space between
+paragraphs. Inherits left margin from div.note and font from the body element.*/
+
+div.important p.additional
+{
+	margin-top: 5px;
+	text-indent: 15px;
+}
+
+div.important ul
+{
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+div.important ol
+{
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+/* [1.03] Tip Notifications													  */
+
+/* Visual properties for Tip notifications. Inherits font and hyphenation from
+the body element. Inherits its width from the parent element. */
+
+div.tip
+{
+	margin-bottom: 5px;
+	border-width: 2px;
+	border-style: solid;
+	border-color: #293896;
+	padding-top: 2px;
+	padding-right: 2px;
+	padding-bottom: 2px;
+	background-color: #fafcfe;
+}
+
+/* Default paragraph properties nested in a note div. Sets margins to 0 so the
+padding of the .tip class remain unaffected. */
+
+div.tip p
+{
+	margin-top: 0px;
+	margin-bottom: 0px;
+	padding-bottom: 0px;
+}
+
+/* First line for a tip (singular). */
+
+div.tip p.firstEnglish
+{
+	text-indent: 6px;
+	mc-auto-number-format: '{b}TIP:{/b}    ';
+}
+
+/* First line for tips (plural). */
+
+div.tip p.firstEnglishPlural
+{
+	text-indent: 6px;
+	mc-auto-number-format: '{b}TIPS:{/b}    ';
+}
+
+/* Paragraph properties for additional paragrahs in a Tip. Sets space between
+paragraphs. Inherits left margin from div.tip and font from the body element. */
+
+div.tip p.additional
+{
+	margin-top: 5px;
+	text-indent: 15px;
+}
+
+div.tip ul
+{
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+div.tip ol
+{
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+/* [1.04] Attention Notifications											  */
+
+/* Visual properties for Attention notifications. Inherits font and hyphenation 
+from the body element. Inherits its width from the parent element. */
+
+div.attention
+{
+	margin-bottom: 5px;
+	border-width: 2px;
+	border-style: solid;
+	border-color: #e39717;
+	padding-top: 2px;
+	padding-right: 2px;
+	padding-bottom: 2px;
+	background-color: #fcf0dc;
+}
+
+/* Dividing div to separate lists for French translations. Adds line above the
+desired list. */
+
+div.attention div
+{
+	margin-top: 1px;
+	margin-right: 0px;
+	margin-bottom: 1px;
+	margin-left: -25px;
+	border-top-width: 1px;
+	border-top-color: #e39717;
+	border-top-style: solid;
+	padding-top: 1px;
+	padding-left: 25px;
+}
+
+/* Default paragraph properties nested in an attention div. Sets margins to 
+0 so the padding of the .attention class remain unaffected. */
+
+div.attention p
+{
+	margin-top: 0px;
+	margin-bottom: 0px;
+	padding-bottom: 0px;
+}
+
+/* First line of an attention (English). */
+
+div.attention p.firstEnglish
+{
+	text-indent: 6px;
+	mc-auto-number-format: '{b}ATTENTION: {/b}  ';
+}
+
+/* First line of an attention (French). */
+
+div.attention p.firstFrench
+{
+	margin-top: 5px;
+	text-indent: 6px;
+	mc-auto-number-format: '{b}ATTENTION : {/b}  ';
+}
+
+/* Paragraph properties for additional paragrahs in an Attention. Sets space 
+between paragraphs. Inherits left margin from div.attention and font from the 
+body element. */
+
+div.attention p.additional
+{
+	margin-top: 5px;
+	text-indent: 15px;
+}
+
+div.attention ul
+{
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+div.attention ol
+{
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+/* [1.05] Caution Notifications												  */
+
+/* Visual properties for Caution notifications. Inherits font and hyphenation 
+from the body element. Inherits its width from the parent element. */
+
+div.caution
+{
+	margin-bottom: 5px;
+	border-width: 2px;
+	border-style: solid;
+	border-color: #d2232a;
+	padding-top: 2px;
+	padding-right: 2px;
+	padding-bottom: 2px;
+	background-color: #ffffff;
+}
+
+div.caution div
+{
+	margin-top: 1px;
+	margin-right: -2px;
+	margin-bottom: 1px;
+	margin-left: 6px;
+	border-top-width: 1px;
+	border-top-color: #d2232a;
+	border-top-style: solid;
+	padding-left: 25px;
+}
+
+/* Default paragraph properties nested in a caution div. Sets margins to 0 so 
+the padding of the .caution class remain unaffected. */
+
+div.caution p
+{
+	margin-top: 0px;
+	margin-bottom: 0px;
+	padding-bottom: 0px;
+}
+
+/* First line of a caution (English). */
+
+div.caution p.firstEnglish
+{
+	text-indent: 6x;
+	mc-auto-number-format: '{b}CAUTION:{/b}  ';
+}
+
+/* First line of a caution (French). */
+
+div.caution p.firstFrench
+{
+	margin-top: 5px;
+	text-indent: 6px;
+	mc-auto-number-format: '{b}ATTENTION :{/b}  ';
+}
+
+/* Paragraph properties for additional paragrahs in a Caution. Sets space 
+between paragraphs. Inherits left margin from div.caution and font from the 
+body element. */
+
+div.caution p.additional
+{
+	margin-top: 5px;
+	text-indent: 15px;
+}
+
+div.caution ul
+{
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+div.caution ol
+{
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+/* [1.06] Warning Notifications												  */
+
+/* Visual properties for Warning notifications. Inherits font and hyphenation 
+from the body element. Inherits its width from the parent element. */
+
+div.warning
+{
+	margin-bottom: 5px;
+	border-width: 2px;
+	border-style: solid;
+	border-color: #d90000;
+	padding-top: 2px;
+	padding-right: 2px;
+	padding-bottom: 2px;
+	background-color: #ffffff;
+}
+
+div.warning div
+{
+	margin-top: 1px;
+	margin-right: -2px;
+	margin-bottom: 1px;
+	margin-left: -6px;
+	border-top-width: 2px;
+	border-top-color: #d90000;
+	border-top-style: solid;
+	padding-left: 25px;
+}
+
+/* Default paragraph properties nested in a warning div. Sets margins to 0 so the
+padding of the .warning class remain unaffected. */
+
+div.warning p
+{
+	margin-top: 0px;
+	margin-bottom: 0px;
+	padding-bottom: 0px;
+}
+
+div.warning p.first-child
+{
+	content: url('../../../../../../CURRENT_WIP/WIP_Help/KB_Dev_Only/GCP_v3.5.0_WebHelpTest_1/Content/Resources/Images/Resources/Images/warning.png');
+	width: 18px;
+	height: 18px;
+	position: absolute;
+	left: 10px;
+	top: 8px;
+}
+
+/* First line of a warning (English). */
+
+div.warning p.firstEnglish
+{
+	text-indent: -20px;
+	mc-auto-number-format: '{b}WARNING:{/b}  ';
+}
+
+/* First line of a warning (French). */
+
+div.warning p.firstFrench
+{
+	margin-top: 5px;
+	text-indent: -20px;
+	mc-auto-number-format: '{b}AVERTISSEMENT:{/b}  ';
+}
+
+/* Paragraph properties for additional paragrahs in a Warning. Sets space between
+paragraphs. Inherits left margin from div.warning and font from the body 
+element. */
+
+div.warning p.additional
+{
+	margin-top: 5px;
+	text-indent: 15px;
+}
+
+div.warning ul
+{
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+div.warning ol
+{
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+/* [1.07] Danger Notifications												  */
+
+div.danger
+{
+	margin-bottom: 5px;
+	border-width: 2px;
+	border-style: solid;
+	border-color: #d90000;
+	padding-top: 2px;
+	padding-right: 2px;
+	padding-bottom: 2px;
+	background-color: #faf2f2;
+}
+
+div.danger div
+{
+	margin-top: 1px;
+	margin-right: -2px;
+	margin-bottom: 1px;
+	margin-left: -25px;
+	border-top-width: 2px;
+	border-top-color: #d90000;
+	border-top-style: solid;
+	padding-left: 25px;
+}
+
+/* Default paragraph properties nested in a danger div. Sets margins to 0 so the
+padding of the .danger class remain unaffected. */
+
+div.danger p
+{
+	margin-top: 0px;
+	margin-bottom: 0px;
+	padding-bottom: 0px;
+}
+
+/* 
+First line of a danger.
+*/
+
+div.danger p.firstEnglish
+{
+	text-indent: -20px;
+	mc-auto-number-format: '{b}DANGER:{/b}  ';
+}
+
+/* Paragraph properties for additional paragrahs in a Danger. Sets space between
+paragraphs. Inherits left margin from div.danger and font from the body 
+element. */
+
+div.danger p.additional
+{
+	margin-top: 5px;
+	text-indent: 15px;
+}
+
+div.danger ul
+{
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+div.danger ol
+{
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+/* [1.08] Tables															  */
+/* Default table properties. */
+
+table
+{
+	margin-bottom: 6px;
+	border-collapse: collapse;
+	white-space: normal;
+}
+
+tr
+{
+	page-break-inside: avoid;
+}
+
+/* Standard table properties. */
+
+table.standard
+{
+	border: 2px;
+	border-style: solid;
+	border-color: #25408f;
+	page-break-inside: avoid;
+}
+
+table.standard th
+{
+	border-right-style: solid;
+	border-right-width: 1px;
+	border-bottom-style: double;
+	border-bottom-width: 3px;
+	border-left-style: solid;
+	border-left-width: 1px;
+	border-color: #25408f;
+	padding: 6px;
+	text-align: center;
+}
+
+table.standard td
+{
+	border-style: solid;
+	border-width: 1px;
+	border-color: #25408f;
+	padding: 6px;
+}
+
+/* Glossary table properties. */
+
+table.glossary
+{
+	border: 0pt;
+}
+
+table.glossary td
+{
+	padding: 7px;
+	vertical-align: top;
+}
+
+/* [1.09] Headings															  */
+/* First level heading for WebHelp only. */
+
+h1
+{
+	margin-top: 10px;
+	margin-right: 1px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	font-size: 14pt;
+	font-weight: bold;
+	color: #000080;
+	mc-next-tag: p;
+	font-family: Arial;
+}
+
+/* Second level heading for WebHelp only. */
+
+h2
+{
+	margin-top: 1px;
+	margin-bottom: 10px;
+	font-size: 12pt;
+	font-weight: bold;
+	mc-next-tag: p;
+}
+
+/* Third level heading for WebHelp only. */
+
+h3
+{
+	margin-top: 1px;
+	margin-bottom: 10px;
+	font-weight: bold;
+	mc-next-tag: p;
+	font-size: 11pt;
+	margin: .80em 0;
+}
+
+/* Fourth level heading for WebHelp only. */
+
+h4
+{
+	margin-top: 1px;
+	margin-bottom: 10px;
+	font-size: 11pt;
+	font-weight: bold;
+	font-style: italic;
+	mc-next-tag: p;
+}
+
+h5
+{
+	mc-hidden: hidden;
+}
+
+h6
+{
+	mc-hidden: hidden;
+}
+
+/* [1.10] Lists																  */
+
+ol
+{
+	margin-left: 0px;
+	text-indent: 0px;
+}
+
+ul
+{
+	margin-left: 0px;
+	text-indent: 0px;
+	list-style-type: disc;
+}
+
+li
+{
+	margin-top: 5px;
+	page-break-inside: avoid;
+}
+
+/* [1.11] Images															  */
+
+img
+{
+	max-width: 1280px;
+	border: solid 0px #000000;
+}
+
+/* Element for text divider images. */
+
+img.textDivider
+{
+	margin-left: 0px;
+	border: 0px;
+	max-width: 1280px;
+	width: 1280px;
+}
+
+/* [1.12] Characters														  */
+
+callouts
+{
+	font-size: 14pt;
+	font-family: "Extron Reverse Symbols";
+}
+
+tt
+{
+	font-family: "Lucida Console", Monaco, monospace;
+}
+
+tt.computerInput
+{
+	
+}
+
+tt.clickableItem
+{
+	font-weight: bold;
+}
+
+tt.variable
+{
+	font-style: italic;
+}
+
+tt.boldItalic
+{
+	font-style: italic;
+	font-weight: bold;
+}
+
+code
+{
+	font-family: "Lucida Console", Monaco, monospace;
+}
+
+code.computerInput
+{
+	
+}
+
+code.clickableItem
+{
+	font-weight: bold;
+}
+
+code.variable
+{
+	font-style: italic;
+}
+
+code.boldItalic
+{
+	font-style: italic;
+	font-weight: bold;
+}
+
+abbr
+{
+	mc-hidden: hidden;
+}
+
+acronym
+{
+	mc-hidden: hidden;
+}
+
+b
+{
+	mc-hidden: hidden;
+}
+
+big
+{
+	mc-hidden: hidden;
+}
+
+cite
+{
+	mc-hidden: hidden;
+}
+
+code
+{
+	
+}
+
+del
+{
+	mc-hidden: hidden;
+}
+
+em
+{
+	mc-hidden: hidden;
+}
+
+i
+{
+	mc-hidden: hidden;
+}
+
+ins
+{
+	mc-hidden: hidden;
+}
+
+kbd
+{
+	mc-hidden: hidden;
+}
+
+MadCap|helpControlMenuItem
+{
+	mc-hidden: hidden;
+}
+
+MadCap|slideshowNavigationControls
+{
+	mc-hidden: hidden;
+}
+
+MadCap|slideThumbnail.active
+{
+	mc-hidden: hidden;
+}
+
+samp
+{
+	mc-hidden: hidden;
+}
+
+small
+{
+	mc-hidden: hidden;
+}
+
+span.boolean
+{
+	mc-hidden: hidden;
+}
+
+span.state
+{
+	mc-hidden: hidden;
+}
+
+strong
+{
+	mc-hidden: hidden;
+}
+
+sub
+{
+	mc-hidden: hidden;
+}
+
+sup
+{
+	mc-hidden: hidden;
+}
+
+var
+{
+	mc-hidden: hidden;
+}
+
+MadCap|xref
+{
+	color: #0000ff;
+	text-decoration: underline;
+	mc-format: '{paratext}';
+}
+
+a
+{
+	color: #0000ff;
+}
+
+/*
+}
+*/
+
+/*
+################################################################################
+	User Guide
+################################################################################
+*/
+
+@media UserGuide
+{
+	/* *************************************************************************  */
+	/* [2.01] General															  */
+	/* *************************************************************************  */
+	/* Default settings for PDF. Sets margins and fonts. */
+
+	body
+	{
+		width: 672px;
+		margin-left: 144px;
+		text-align: left;
+		font-family: Arial, sans-serif;
+		font-size: 10pt;
+		color: #000000;
+	}
+
+	/* *************************************************************************  */
+	/* [2.02] Paragraphs														  */
+	/* *************************************************************************  */
+	/* Paragraph properies for no indentation */
+
+	p.noIndent
+	{
+		margin-left: -144px;
+	}
+
+	p.figureCaption
+	{
+		font-weight: bold;
+		mc-auto-number-format: 'GF:{color #25408f}Figure {n+}.{/color}  ';
+	}
+
+	p.footer
+	{
+		margin-top: 3px;
+		margin-bottom: 3px;
+		margin-top: 3px;
+		text-align: center;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 9pt;
+		color: #25408f;
+		mc-hidden: hidden;
+	}
+
+	/* *************************************************************************  */
+	/* [2.03] Tables															  */
+	/* *************************************************************************  */
+	/* *************************************************************************  */
+	/* [2.04] Headings															  */
+	/* *************************************************************************  */
+
+	h1
+	{
+		margin-left: -144px;
+		padding-top: 18px;
+		padding-bottom: 6px;
+		font-size: 14pt;
+		color: #25408f;
+		page-break-after: avoid;
+		page-break-inside: avoid;
+		mc-toc-depth: 2;
+		mc-heading-level: 2;
+	}
+
+	h1.frontCoverTitle
+	{
+		margin-top: 1px;
+		margin-bottom: 3px;
+		padding-top: 0px;
+		padding-bottom: 3px;
+		background: #ffffff;
+		font-weight: bold;
+		font-size: 30pt;
+		color: #000000;
+		page-break-after: avoid;
+		mc-heading-level: 0;
+	}
+
+	h1.sectionHeading
+	{
+		padding-right: 288px;
+		padding-bottom: 96px;
+		font-weight: bold;
+		font-size: 30pt;
+		color: #000000;
+		page-break-before: always;
+		page-break-after: avoid;
+		mc-toc-depth: 1;
+		mc-heading-level: 1;
+	}
+
+	h2
+	{
+		margin-left: -96px;
+		padding-top: 18px;
+		padding-bottom: 6px;
+		font-size: 12pt;
+		color: #25408f;
+		page-break-after: avoid;
+		page-break-inside: avoid;
+		mc-toc-depth: 3;
+		mc-heading-level: 3;
+	}
+
+	h2.frontCoverSubtitle
+	{
+		margin-bottom: 5px;
+		margin-left: -144px;
+		padding-top: 0px;
+		padding-bottom: 0px;
+		background: #ffffff;
+		font-size: 14pt;
+		color: #000000;
+		mc-heading-level: 0;
+	}
+
+	h3
+	{
+		padding-top: 12px;
+		padding-bottom: 6px;
+		color: #25408f;
+		page-break-after: avoid;
+		page-break-inside: avoid;
+		mc-toc-depth: 0;
+		mc-heading-level: 0;
+		font-size: 10pt;
+	}
+
+	h4
+	{
+		padding-top: 12px;
+		padding-bottom: 6px;
+		font-style: italic;
+		font-size: 11pt;
+		color: #25408f;
+		page-break-after: avoid;
+		page-break-inside: avoid;
+		mc-toc-depth: 0;
+		mc-heading-level: 0;
+	}
+
+	h5
+	{
+		mc-hidden: hidden;
+	}
+
+	h6
+	{
+		mc-hidden: hidden;
+	}
+
+	/* *************************************************************************  */
+	/* [2.05] Lists																  */
+	/* *************************************************************************  */
+
+	ul
+	{
+		margin-left: 0px;
+		list-type-style: disc;
+	}
+
+	ol
+	{
+		margin-left: 0px;
+	}
+
+	/* *************************************************************************  */
+	/* [2.06] Images															  */
+	/* *************************************************************************  */
+
+	img
+	{
+		max-width: 1240px;
+	}
+
+	/* *************************************************************************  */
+	/* [2.07] Characters														  */
+	/* *************************************************************************  */
+
+	a:link
+	{
+		text-decoration: none;
+		font-weight: bold;
+	}
+
+	MadCap|xref
+	{
+		text-decoration: none;
+		mc-format: '{b}{paratext}{/b}';
+	}
+
+	/* *************************************************************************  */
+	/* [2.08] MadCap Table of Contents											  */
+	/* *************************************************************************  */
+
+	MadCap|tocProxy
+	{
+		margin-left: -144px;
+		border-top-width: 0px;
+		mc-hyphenate: never;
+		page-break-inside: auto;
+	}
+
+	/* Section headings */
+
+	p.toc1
+	{
+		margin-top: 19px;
+		margin-bottom: 5px;
+		border-top-color: #25408f;
+		border-top-style: solid;
+		border-top-width: 1px;
+		padding-top: 5px;
+		padding-right: 40px;
+		color: #25408f;
+		font-size: 11pt;
+		orphans: 2;
+		page-break-after: avoid;
+		mc-heading-level: 1;
+		mc-leader-align: right;
+		mc-leader-format: '.';
+		mc-leader-offset: 10pt;
+	}
+
+	/* Heading 1 */
+
+	p.toc2
+	{
+		margin-top: 5px;
+		margin-bottom: 0px;
+		padding-right: 40px;
+		padding-left: 35px;
+		font-weight: normal;
+		mc-leader-align: right;
+		mc-leader-format: '.';
+		mc-leader-offset: 10pt;
+	}
+
+	/* Heading 2 */
+
+	p.toc3
+	{
+		margin-top: 5px;
+		margin-bottom: 0px;
+		padding-right: 40px;
+		padding-left: 50px;
+		font-weight: normal;
+		mc-leader-align: right;
+		mc-leader-format: '.';
+		mc-leader-offset: 10pt;
+	}
+}
+
+h1.FrontCoverTitle
+{
+	font-size: 30pt;
+}
+
+h1.SectionHeading
+{
+	font-size: 30pt;
+}
+
+p.p-todo
+{
+	margin-top: 5px;
+	margin-bottom: 5px;
+	font-weight: bold;
+}
+
+img.img-noborder
+{
+	max-width: 550px;
+	border-left-style: solid;
+	border-right-style: solid;
+	border-top-style: solid;
+	border-bottom-style: solid;
+	border-bottom-width: 0px;
+	border-left-width: 0px;
+	border-right-width: 0px;
+	border-top-width: 0px;
+}
+
+img.img-border
+{
+	max-width: 550px;
+	border-left-style: solid;
+	border-left-width: 1px;
+	border-right-style: solid;
+	border-right-width: 1px;
+	border-top-style: solid;
+	border-top-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+}
+
+ol.subList-indent-alpha	/*use for lower aplpha lists inside steps that are broken by section*/
+{
+	margin-left: -20px;
+	text-indent: 0px;
+	list-style-type: lower-alpha;
+}
+
+ol.subList-indent-numeric	/*use for numeric lists inside steps that are broken by section*/
+{
+	margin-left: -20px;
+	text-indent: 0px;
+	list-style-type: numeric;
+}
+
+ol.subList-indent-bullet	/*use for bulleted lists inside steps that are broken by section*/
+{
+	margin-left: -20px;
+	text-indent: 0px;
+	list-style-type: bullet;
+}
+
+span.callout
+{
+	font-size: 14pt;
+	font-family: 'Extron Reverse Symbols Rev A';
+}
+
+/*** firmware header ***/
+
+.firmware-header
+{
+	padding-bottom: .5rem;
+	border-bottom: 3px solid #2a4a88;
+	margin-bottom: 1rem;
+	width: 100%;
+}
+
+.firmware-header .fw-logo
+{
+	text-align: left;
+}
+
+.firmware-header .fw-logo img
+{
+	width: 120px;
+}
+
+.firmware-header .fw-text
+{
+	text-align: right;
+	color: #2a4a88;
+}
+
+.firmware-header .fw-title
+{
+	font-weight: 700;
+	font-size: 1rem;
+	margin-bottom: 0;
+	text-transform: uppercase;
+	margin-right: 0;
+}
+
+.firmware-header .fwrn
+{
+	font-weight: 300;
+	font-size: 1.75rem;
+	line-height: 1;
+}
+
+@media (max-width: 575.98px)
+{
+	.firmware-header
+	{
+		flex-direction: column;
+	}
+
+	.firmware-header .fw-logo
+	{
+		margin-bottom: .5rem;
+		margin-top: .5rem;
+		display: block;
+	}
+
+	.firmware-header .fw-text
+	{
+		text-align: left;
+		display: block;
+	}
+}
+
+p.p_1
+{
+	margin-top: 0pt;
+	margin-bottom: 0pt;
+	font-family: Arial;
+	font-size: 10pt;
+}
+
+ol.ol_1
+{
+	font-family: 'Times New Roman';
+	font-size: 12pt;
+	margin-top: 0pt;
+	margin-bottom: 0pt;
+}
+
+ul.ul_1
+{
+	font-family: 'Times New Roman';
+	font-size: 12pt;
+	margin-top: 0pt;
+	margin-bottom: 0pt;
+}
+
+li.li_1
+{
+	page-break-inside: avoid;
+	font-family: 'Times New Roman';
+	font-size: 12pt;
+	margin-top: 0pt;
+	margin-bottom: 0pt;
+}
+
+td.td_1
+{
+	border-style: solid;
+	border-width: 1px;
+	border-color: #25408f;
+	padding: 6px;
+	font-family: 'Times New Roman';
+	font-size: 12pt;
+	vertical-align: top;
+}
+
+h1.Heading1
+{
+	margin-top: 5pt;
+	margin-bottom: 5pt;
+	mc-heading-level: 1;
+	font-family: 'Times New Roman';
+	font-weight: bold;
+	font-size: 24pt;
+}
+
+p.NormalWeb
+{
+	margin-top: 5pt;
+	margin-bottom: 5pt;
+	font-family: Arial;
+	font-size: 10pt;
+}
+
+span.Strong
+{
+	font-weight: bold;
+}
+
+p.NormalWeb_1
+{
+	margin-top: 5pt;
+	margin-bottom: 5pt;
+	text-align: center;
+	font-family: Arial;
+	font-size: 10pt;
+}
+
+img.img-noborder
+{
+	max-width: 550px;
+	border-left-style: solid;
+	border-right-style: solid;
+	border-top-style: solid;
+	border-bottom-style: solid;
+	border-bottom-width: 0px;
+	border-left-width: 0px;
+	border-right-width: 0px;
+	border-top-width: 0px;
+}
+

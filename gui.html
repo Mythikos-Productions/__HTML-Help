@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GUI Best Practices</title>
+    <link rel="stylesheet" href="assets/styles.css">
+    <link rel="stylesheet" href="assets/highlight/styles/atom-one-dark.css">
+    <script src="assets/highlight/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+    <script>
+        // ! Function to search through HTML files and show results in the main window
+        function searchTopics() {
+            let input = document.getElementById('search'); // ! Get the search input
+            let filter = input.value.toLowerCase(); // ! Convert input to lowercase for case-insensitive search
+            let results = []; // ! Array to store search results
+
+            // ! List of all available topics, simulating a folder with file names and content
+            let topics = [
+                {name: 'About The Framework', link: 'about.html', content: 'Details about the framework...'},
+                {name: 'Defining a Sandbox', link: 'sandbox.html', content: 'Learn how to define a sandbox...'},
+                {name: 'GUI Best Practices', link: 'gui.html', content: 'Best practices for GUI...'},
+                {name: 'Framework Essentials', link: 'essentials.html', content: 'Overview of framework essentials...'},
+                {name: 'Boot Agent', link: 'boot-agent.html', content: 'Information on boot agent...'},
+                {name: 'Matrix Configuration', link: 'matrix.html', content: 'Configuring the matrix...'},
+                {name: 'Device Configuration', link: 'devices.html', content: 'Configuring devices...'},
+                {name: 'Sandbox Config', link: 'sandbox-config.html', content: 'Configuring sandbox settings...'}
+            ];
+
+            // ! Loop through all topics and check if any part of the content matches the search query
+            topics.forEach(function(topic) {
+                if (topic.name.toLowerCase().includes(filter) || topic.content.toLowerCase().includes(filter)) {
+                    results.push(topic); // ! Add matching topic to results array
+                }
+            });
+
+            // ! Display results in the main content window
+            displayResults(results);
+        }
+
+        // ! Function to toggle submenus in the table of contents on click
+        function toggleSubmenu(event) {
+            let submenu = event.target.nextElementSibling; // ! Get the submenu
+            if (submenu && submenu.tagName === 'UL') { // ! Check if it's a submenu
+                submenu.style.display = submenu.style.display === 'block' ? 'none' : 'block'; // ! Toggle display
+            }
+        }
+
+        // ! Function to display the search results in the main content window
+        function displayResults(results) {
+            let contentDiv = document.querySelector('.content'); // ! Get the content div
+            contentDiv.innerHTML = ''; // ! Clear any previous results
+
+            if (results.length === 0) {
+                contentDiv.innerHTML = '<p>No results found.</p>'; // ! Show message if no results
+            } else {
+                let resultsHtml = '<h2>Search Results:</h2><ul>';
+                // ! Generate HTML for each result
+                results.forEach(function(result) {
+                    resultsHtml += `<li><a href="${result.link}">${result.name}</a><p>${result.content}</p></li>`;
+                });
+                resultsHtml += '</ul>';
+                contentDiv.innerHTML = resultsHtml; // ! Update the content div with search results
+            }
+        }
+
+        // ! Function to dynamically load sidebar.html into the page
+        function loadSidebar() {
+            fetch('sidebar.html')
+                .then(response => response.text()) // ! Fetch sidebar content
+                .then(data => {
+                    document.getElementById('sidebar-container').innerHTML = data; // ! Insert into placeholder
+                    attachSidebarEventListeners(); // ! Reattach event listeners after loading
+                })
+                .catch(error => console.error('Error loading sidebar:', error)); // ! Handle errors
+        }
+
+        // ! Reattach event listeners after loading sidebar
+        function attachSidebarEventListeners() {
+            const tocLinks = document.querySelectorAll('.sidebar ul li > a'); // ! Get all anchor links in the TOC
+            tocLinks.forEach(link => {
+                // ! Add click event to toggle submenu visibility
+                link.addEventListener('click', toggleSubmenu);
+            });
+        }
+
+        // ! Load sidebar when the page is ready
+        document.addEventListener("DOMContentLoaded", loadSidebar);
+    </script>
+    <style>
+        /* ! Style for the submenu items */
+        .sidebar ul ul {
+            display: none; /* ! Initially hide all submenus */
+            padding-left: 20px; /* ! Indentation for submenu items */
+            font-size: 0.9em; /* ! Smaller font for the submenu */
+        }
+
+        /* ! Optional: style for submenu links to make them more distinct */
+        .sidebar ul ul li a {
+            font-size: 0.9em; /* ! Smaller font size for better distinction */
+            color: #555; /* ! Subtle color for submenu links */
+        }
+
+        .sidebar ul li a:hover {
+            font-weight: bold; /* ! Make parent item bold on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="sidebar-container"></div> <!-- ! Sidebar will be inserted here dynamically -->
+
+        <main class="content">
+            <h1>GUI Best Practices</h1>
+            <p>It does boot like thingees.</p>
+        </main>
+    </div>
+</body>
+</html>
